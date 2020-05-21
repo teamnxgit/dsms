@@ -1,0 +1,17 @@
+#app>.row{
+  padding:0px !important;
+  margin:0px !important;
+}
+#app>.row>.col-lg-2{
+  padding:0px !important;
+  margin:0px;
+}
+#app>.row>.col-lg-10{
+  margin:0px;
+}
+#container{
+  position: relative;
+  display: block;
+  min-height: 100vh;
+  background-color: #e5e5ff;
+}

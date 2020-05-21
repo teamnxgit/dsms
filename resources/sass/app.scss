@@ -6,3 +6,12 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Sidebar
+@import 'sidebar.scss';
+
+// App Layout
+@import 'app_layout.scss';
+
+// Font-awesome
+@import "node_modules/font-awesome/scss/font-awesome.scss";
