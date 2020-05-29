@@ -54,6 +54,9 @@ Route::post('/user/{id}/addpermission', 'UserController@addPermission');
 Route::post('/user/{id}/rempermission', 'UserController@remPermission');
 Route::post('/user/{id}/updateuser', 'UserController@updateUser');
 
+
+Route::get('/users/seed','UserController@seedUser');
+
 });
 
 

@@ -67,4 +67,57 @@ class UserController extends Controller
         $role = Role::findOrFail($request->input('role_id'));
         $user->assignRole($role->name);
     }
+
+    public function seedUser(){
+        // Defining Permissions
+        $permissions = [
+            ['name' => 'View Person'],
+            ['name' => 'View Attendance'],
+            ['name' => 'View Social Security'],
+            ['name' => 'View Samurdhi'],
+            ['name' => 'View Users'],
+            ['name' => 'User Password'],
+            ['name' => 'User Permission'],
+            ['name' => 'Delete User']
+        ];
+        // Inserting Permission Into Database which not exist
+        foreach ($permissions as $permission) {
+            if(Permission::where('name',$permission['name'])->first()===null){
+                Permission::create($permission);
+            }
+        }
+
+        // Defining Roles
+        $roles = [
+            ['name' => 'DS'],
+            ['name' => 'ADS'],
+            ['name' => 'ADP'],
+            ['name' => 'Accountant'],
+            ['name' => 'AO'],
+            ['name' => 'DO'],
+            ['name' => 'MSO'],
+            ['name' => 'EDO'],
+            ['name'=>'ICTA'],
+            ['name'=>'SSO']
+        ];
+
+        // Inserting Roles Into Database which not exist
+
+        foreach ($roles as $role) {
+            if(Role::where('name',$role['name'])->first()===null){
+                Role::create($role);
+            }
+        }
+
+        
+        $user = User::where('email','mail2snasik@gmail.com')->first();
+        $role = Role::where('name','ICTA')->first();
+
+        $user->assignRole($role->name);
+        $user->givePermissionTo('View Users');
+        $user->givePermissionTo('User Password');
+        $user->givePermissionTo('User Permission');
+        $user->givePermissionTo('Delete User');
+
+    }
 }
