@@ -12,8 +12,8 @@ if (Auth::check()) {
             <img class="rounded-circle" src="{{asset('images/user.jpg')}}" style="width:50px">
         </div>
         <div class="col-8 p-0">
-            <h6 class="p-0 m-0">Nashath Nasik</h6> 
-            <div class="pt-0 mt-0">System Admin</div>
+            <h6 class="display p-0 m-0 pt-1 mt-1">{{Auth::user()->name}}</h6> 
+            <div class="pt-0 mt-0">{{Auth::user()->role}}</div>
         </div>
     </div>
 

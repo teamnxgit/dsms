@@ -9,7 +9,7 @@
                 <div class="h3">Households</div>
             </div>
             <div class="col-8 text-right">
-                <a class="btn btn-primary text-light" href="/household/new/">+ Add New Household</a>
+                <a class="btn btn-primary text-light" href="household/new/">+ Add New Household</a>
             </div>
         </div>
         <hr>
