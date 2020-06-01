@@ -17,9 +17,10 @@ class CreatePeopleTable extends Migration
             $table->id();
             $table->string('full_name');
             $table->string('gender',6);
-            $table->string('gn_division_id',10);
-            $table->string('town',10);
+            $table->unsignedBigInteger('gn_division_id');
+            $table->unsignedBigInteger('town_id');
             $table->string('nic',15)->unique()->nullable();
+            $table->unsignedBigInteger('house_id')->nullable();
 
             $table->string('name_with_initials')->nullable();
             $table->string('maritial_status', 10)->nullable();
@@ -37,17 +38,17 @@ class CreatePeopleTable extends Migration
 
             $table->boolean('is_head_of_family')->nullable()->default(false);
             $table->integer('vote_list_serial')->nullable();
-            $table->string('house_id',10)->nullable();
             $table->string('residence_status')->nullable();
-            
-            $table->string('occupation_id')->nullable();
-            $table->double('monthly_income', 10, 2)->nullable();
-            $table->longText('occupation_note')->nullable();
-           
-            
 
             $table->timestamps();
         });
+
+        Schema::table('people', function ($table) {
+            $table->foreign('gn_division_id')->references('id')->on('gn_divisions');
+            $table->foreign('town_id')->references('id')->on('towns');
+            $table->foreign('house_id')->references('id')->on('house_holds');
+        });
+
     }
 
     /**
