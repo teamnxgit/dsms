@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Town extends Model
 {
+    protected $fillable = ['name','gn_division_id'];
+
     public function gndivision(){
         return $this->belongsTo('App\GnDivision');
     }

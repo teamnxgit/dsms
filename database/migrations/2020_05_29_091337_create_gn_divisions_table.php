@@ -15,7 +15,7 @@ class CreateGnDivisionsTable extends Migration
     {
         Schema::create('gn_divisions', function (Blueprint $table) {
             $table->id();
-            $table->string('number');
+            $table->string('number')->unique();
             $table->string('name');
             $table->timestamps();
         });

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class GnDivision extends Model{
 
+    protected $fillable = ['number', 'name']; 
+
     public function households(){
         return $this->hasMany('App\HouseHold');
     }

@@ -20,6 +20,7 @@ class CreateHouseHoldsTable extends Migration
             $table->unsignedBigInteger('street_id');
             $table->unsignedBigInteger('gn_division_id');
             $table->string('owner')->nullable();
+            $table->string('gps')->nullable();
 
             $table->string('water_source')->nullable();
             $table->string('electricity_source')->nullable();

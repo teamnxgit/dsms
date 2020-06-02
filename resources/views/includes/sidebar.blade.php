@@ -40,7 +40,8 @@ if (Auth::check()) {
         @can('View Users')
         <a href="/users" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-user mr-3" aria-hidden="true"></i>User Accounts</a>
         @endcan
-        
+
+        <a href="/system" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-cog mr-3" aria-hidden="true"></i>System</a>
     </div>
 
     <div>
