@@ -10,13 +10,14 @@
             </div>
         </div>
         <hr>
+        {!! Form::open(['url' => '/household/new']) !!}
         <div class="p-3 bg-light border rounded row m-1">
             <div class="h5 col-12">Enter the details to add new household</div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">House No</span>
                     </div>
-                    {{Form::text('fullname',null,['class'=>'form-control','placeholder'=>'House No',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
+                    {{Form::text('house_no',null,['class'=>'form-control','placeholder'=>'House No',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
                 </div>
 
                 <div class="input-group mb-3">
@@ -35,7 +36,16 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Village / Town</label>
                     </div>
-                    <select class="custom-select" id="town" name="town_id" id="inputGroupSelect01">
+                    <select class="custom-select" id="town" name="town_id">
+
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Street / Lane</label>
+                    </div>
+                    <select class="custom-select" id="street" name="street_id">
 
                     </select>
                 </div>
@@ -44,14 +54,26 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Owner</span>
                     </div>
-                    {{Form::text('fullname',null,['class'=>'form-control','placeholder'=>'NIC number of the owner',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
+                    {{Form::text('owner_nic',null,['class'=>'form-control','placeholder'=>'NIC number of the owner',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
                 </div>
+                
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-satellite"></i> GPS</span>
+                    </div>
+                    {{Form::text('gps',null,['class'=>'form-control','placeholder'=>'GPS Co-ordinates of the house',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-map-marker-alt"></i></button>
+                    </div>
+                </div>
+
                 <div class="input-group mb-3">
                     {{Form::submit('Save & + New Household',['class'=>'btn btn-secondary '])}}
-                    {{Form::submit('Save',['class'=>'btn btn-success ml-2 '])}}
+                    {{Form::submit('Save & Next',['class'=>'btn btn-success ml-2 '])}}
                     <a class="btn btn-primary ml-2" href="/household/update/essential/123">Next</a>
                 </div>
         </div>
+        {!! Form::close() !!}
     </div>
     <script type="application/javascript">
         $(document).ready(function(){

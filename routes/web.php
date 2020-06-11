@@ -38,6 +38,7 @@ Route::get('/household/search', 'HouseholdController@index');
 Route::get('/household/search/{id}', 'HouseholdController@search');
 Route::get('/household/details/{id}', 'HouseholdController@household')->name('Household');
 Route::get('/household/new', 'HouseholdController@new')->name('New Household');
+Route::post('/household/new/add', 'HouseholdController@add')->name('add Household');
 
 Route::get('/users', 'UserController@index');
 Route::get('/user/{id}', 'UserController@user');
@@ -47,13 +48,20 @@ Route::post('/user/{id}/updateuser', 'UserController@updateUser');
 Route::get('/users/seed','UserController@seedUser');
 
 Route::get('/system','SystemController@index');
+// GN Divisions
 Route::get('/system/gndivisions','SystemController@veiwGNDivision');
 Route::post('/system/gndivisions/add','SystemController@addGNDivision');
 Route::post('/system/gndivisions/rem','SystemController@remGNDivision');
+// Towns / Villages
 Route::get('/system/towns','SystemController@veiwTown');
 Route::post('/system/towns/add','SystemController@addTown');
 Route::post('/system/towns/rem','SystemController@remTown');
 Route::post('/system/towns/list','SystemController@listTown');
+// Streets
+Route::get('/system/streets','SystemController@veiwStreet');
+Route::post('/system/streets/add','SystemController@addStreet');
+Route::post('/system/streets/rem','SystemController@remStreet');
+Route::post('/system/streets/list','SystemController@listStreet');
 
 });
 

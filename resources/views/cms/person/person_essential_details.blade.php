@@ -140,6 +140,7 @@
                     </div>
                     {{Form::text('email',null,['class'=>'form-control','placeholder'=>'Email Address',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
                 </div>
+
             {{Form::submit('Save',['class'=>'btn btn-success ml-2'])}}
             <a class="btn btn-primary ml-2" href="/person/update/house/123">Next</a>
             

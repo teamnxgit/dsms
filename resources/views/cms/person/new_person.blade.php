@@ -71,6 +71,20 @@
                     </div>
                     {{Form::text('fullname',null,['class'=>'form-control','placeholder'=>'NIC Number',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
                 </div>
+                
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">House No</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Choose House...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="2">2/A</option>
+                    </select>
+                    {{Form::submit('+ House',['class'=>'btn btn-outline-success ml-2'])}}
+                </div>
+                
                 <div class="input-group mb-3">
                     {{Form::submit('Save & + New Person',['class'=>'btn btn-secondary '])}}
                     {{Form::submit('Save',['class'=>'btn btn-success ml-2 '])}}

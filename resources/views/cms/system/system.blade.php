@@ -13,16 +13,23 @@
 
         <div class="col-lg-3 rounded">
             <div class="card-counter primary">
-                <i class="fa fa-deviantart"></i>
-                <span class="count-numbers">{{$gn_divisions_count}}</span>
-                <a class="count-name" href="/system/gndivisions/">GN Divisions</a>
+              <i class="fas fa-map"></i>
+              <span class="count-numbers">{{$gn_divisions_count}}</span>
+              <a class="count-name" href="/system/gndivisions/">GN Divisions</a>
             </div>
         </div>
         <div class="col-lg-3 rounded">
             <div class="card-counter primary">
-                <i class="fa fa-code-fork"></i>
-                <span class="count-numbers">{{$towns_count}}</span>
-                <a class="count-name" href="/system/towns/">Towns / Villages</a>
+              <i class="fas fa-map-marked-alt"></i>
+              <span class="count-numbers">{{$towns_count}}</span>
+              <a class="count-name" href="/system/towns/">Towns / Villages</a>
+            </div>
+        </div>
+        <div class="col-lg-3 rounded">
+            <div class="card-counter primary">
+              <i class="fas fa-road"></i>
+              <span class="count-numbers">{{$streets_count}}</span>
+              <a class="count-name" href="/system/streets/">Streets</a>
             </div>
         </div>
     </div>

@@ -19,8 +19,7 @@ if (Auth::check()) {
 
     <div class="links border-bottom border-secondary py-3 text-light list-group list-group-flush">
     
-        <a href="/dashbaord" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-tachometer mr-3" aria-hidden="true"></i>Dashboard</a>
-
+        <a href="/dashbaord" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fas fa-tachometer-alt mr-3" aria-hidden="true"></i>Dashboard</a>
         @can('View Person')
             <a href="/person" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-user mr-3" aria-hidden="true"></i>Person & Household</a>
         @endcan
@@ -34,9 +33,8 @@ if (Auth::check()) {
         @endcan
 
         @can('View Samurdhi')
-        <a href="/socialsecurity" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-handshake-o mr-3" aria-hidden="true"></i>Samurdhi</a>
+        <a href="/socialsecurity" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fas fa-hands-helping mr-3" aria-hidden="true"></i>Samurdhi</a>
         @endcan
-
         @can('View Users')
         <a href="/users" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-user mr-3" aria-hidden="true"></i>User Accounts</a>
         @endcan
