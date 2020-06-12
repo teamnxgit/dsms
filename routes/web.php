@@ -33,13 +33,24 @@ Route::get('/person/update/house/{id}', 'PersonController@house')->name('HouseDe
 Route::get('/person/update/occupation/{id}', 'PersonController@occupation')->name('Occupation Details');
 Route::get('/person/update/disability/{id}', 'PersonController@disability')->name('Disability Details');
 
+// Household
+/* Views */
 Route::get('/household', 'HouseholdController@index');
 Route::get('/household/search', 'HouseholdController@index');
 Route::get('/household/search/{id}', 'HouseholdController@search');
-Route::get('/household/details/{id}', 'HouseholdController@household')->name('Household');
+Route::get('/household/view/basic/{id}', 'HouseholdController@basic')->name('Household Basic Details');
+Route::get('/household/view/essential/{id}', 'HouseholdController@essential')->name('Household Essential Details');
+Route::get('/household/view/facilities/{id}', 'HouseholdController@facilities')->name('Household Facilities');
+Route::get('/household/view/disaster/{id}', 'HouseholdController@disaster')->name('Household Disaster');
 Route::get('/household/new', 'HouseholdController@new')->name('New Household');
-Route::post('/household/new/add', 'HouseholdController@add')->name('add Household');
+/* Functions */
+Route::post('/household/new/add', 'HouseholdController@add');
+Route::post('/household/update/essential/', 'HouseholdController@updateEssesntial');
+Route::post('/household/update/basic/', 'HouseholdController@updateBasic');
 
+
+
+// User
 Route::get('/users', 'UserController@index');
 Route::get('/user/{id}', 'UserController@user');
 Route::post('/user/{id}/addpermission', 'UserController@addPermission');
@@ -47,6 +58,7 @@ Route::post('/user/{id}/rempermission', 'UserController@remPermission');
 Route::post('/user/{id}/updateuser', 'UserController@updateUser');
 Route::get('/users/seed','UserController@seedUser');
 
+/* System Routes */
 Route::get('/system','SystemController@index');
 // GN Divisions
 Route::get('/system/gndivisions','SystemController@veiwGNDivision');

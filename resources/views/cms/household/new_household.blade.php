@@ -10,7 +10,7 @@
             </div>
         </div>
         <hr>
-        {!! Form::open(['url' => '/household/new']) !!}
+        {!! Form::open(['url' => '/household/new/add']) !!}
         <div class="p-3 bg-light border rounded row m-1">
             <div class="h5 col-12">Enter the details to add new household</div>
                 <div class="input-group mb-3">
@@ -68,8 +68,8 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    {{Form::submit('Save & + New Household',['class'=>'btn btn-secondary '])}}
-                    {{Form::submit('Save & Next',['class'=>'btn btn-success ml-2 '])}}
+                    {{Form::button('Save & + New Household',['class'=>'btn btn-secondary','name'=>'submit'])}}
+                    {{Form::submit('Save & Next',['class'=>'btn btn-success ml-2 ','name'=>'submit'])}}
                     <a class="btn btn-primary ml-2" href="/household/update/essential/123">Next</a>
                 </div>
         </div>
@@ -79,17 +79,40 @@
         $(document).ready(function(){
             $(document).on('change','#gn_division',function(event){
                 event.preventDefault();
-                var gn_division = $("#gn_division").val();
-                $.ajax({
-                    data: {gn_division_id: gn_division},
-                    type:'POST',
-                    url:"/system/towns/list",
-                    headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    success:function(data){
-                        $('#town').html(data);
-                    }
-                });
+                fetch_towns()
+            });
+
+            $(document).on('change','#town',function(event){
+                event.preventDefault();
+                fetch_streets();
             });
         });
+
+        function fetch_towns(){
+        var gn_division = $("#gn_division").val();
+            $.ajax({
+                data: {gn_division_id: gn_division},
+                type:'POST',
+                url:"/system/towns/list",
+                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    $('#town').html(data);
+                    fetch_streets();
+                }
+            });
+        }
+
+        function fetch_streets(){
+            var town = $("#town").val();
+            $.ajax({
+                data: {town_id: town},
+                type:'POST',
+                url:"/system/streets/list",
+                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    $('#street').html(data);
+                }
+            });
+        }
     </script>
 @endsection

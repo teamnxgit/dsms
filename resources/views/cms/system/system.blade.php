@@ -6,7 +6,7 @@
     <div class="col-lg-12 p-3 row">
         <div class="row col-lg-12">
             <div class="col-12">
-                <div class="h3">System Configuration</div>
+                <div class="h3">System Configuration - Person & Household</div>
             </div>
         </div>
         <hr>
@@ -18,6 +18,7 @@
               <a class="count-name" href="/system/gndivisions/">GN Divisions</a>
             </div>
         </div>
+
         <div class="col-lg-3 rounded">
             <div class="card-counter primary">
               <i class="fas fa-map-marked-alt"></i>
@@ -25,6 +26,7 @@
               <a class="count-name" href="/system/towns/">Towns / Villages</a>
             </div>
         </div>
+
         <div class="col-lg-3 rounded">
             <div class="card-counter primary">
               <i class="fas fa-road"></i>
@@ -32,6 +34,47 @@
               <a class="count-name" href="/system/streets/">Streets</a>
             </div>
         </div>
+
+        <div class="col-lg-3 rounded">
+            <div class="card-counter primary">
+              <i class="fas fa-briefcase"></i>
+              <span class="count-numbers">0</span>
+              <a class="count-name" href="/system/jobs/">Jobs</a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 rounded">
+            <div class="card-counter primary">
+              <i class="fas fa-bolt"></i>
+              <span class="count-numbers">0</span>
+              <a class="count-name" href="/system/jobs/">Electricity Sources</a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 rounded">
+            <div class="card-counter primary">
+              <i class="fas fa-toilet"></i>
+              <span class="count-numbers">0</span>
+              <a class="count-name" href="/system/jobs/">Toilet Facilities</a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 rounded">
+            <div class="card-counter primary">
+              <i class="fas fa-faucet"></i>
+              <span class="count-numbers">0</span>
+              <a class="count-name" href="/system/jobs/">Water Facilities</a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 rounded">
+            <div class="card-counter primary">
+              <i class="fas fa-utensils"></i>
+              <span class="count-numbers">0</span>
+              <a class="count-name" href="/system/jobs/">Cooking Facilities</a>
+            </div>
+        </div>
+
     </div>
     <style>
     .card-counter{

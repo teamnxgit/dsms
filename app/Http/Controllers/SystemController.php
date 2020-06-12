@@ -96,13 +96,11 @@ class SystemController extends Controller
             'town_id' => 'required',
             'name' => 'required',
         ]);
-
-        //dd($request);
         
         $gn_div_id = GnDivision::findOrFail($request->input('gndivision_id'))->id;
         $town_id = Town::findOrFail($request->input('town_id'))->id;
         $street_name = $request->input('name');
-        Town::updateOrCreate(['name'=>$street_name,'gn_division_id'=>$gn_div_id,'town_id'=>$town_id]);
+        Street::updateOrCreate(['name'=>$street_name,'gn_division_id'=>$gn_div_id,'town_id'=>$town_id]);
         session()->flash('success', 'Street/Lane Created');
         return redirect()->back();
         
@@ -116,9 +114,9 @@ class SystemController extends Controller
     }
 
     public function listStreet(Request $request){
-        $gn_division = GnDivision::find($request->input('gn_division_id'));
-        $data['towns'] = Town::where('gn_division_id',$gn_division->id)->get();
-        return view('cms.system.fetch_towns')->with($data);
+        $town = Town::find($request->input('town_id'));
+        $data['streets'] = Street::where('town_id',$town->id)->get();
+        return view('cms.system.fetch_streets')->with($data);
     }
 
 

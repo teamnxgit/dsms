@@ -32,7 +32,7 @@
                                 <td>{{$street->name}}</td>
                                 <td>
                                 {!! Form::open(['url' => '/system/streets/rem']) !!}
-                                    <input type="hidden" name="street_id" value="{{$stret->id}}">
+                                    <input type="hidden" name="street_id" value="{{$street->id}}">
                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 {!! Form::close() !!}
                                 </td>
