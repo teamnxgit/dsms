@@ -6,24 +6,24 @@
     <div class="col-lg-12 p-3 row">
         <div class="row col-lg-12">
             <div class="col-12">
-                <div class="h3">System Configurations</div>
+                <div class="h3">System Configurations - Person</div>
             </div>
         </div>
         <hr>
-        
+
         <div class="col-lg-3 rounded">
             <div class="card-counter danger">
-              <i class="fas fa-user-friends"></i>
-              <span class="count-numbers">2</span>
-              <a class="count-name" href="/system/person/">Person Variables</a>
+              <i class="fas fa-briefcase"></i>
+              <span class="count-numbers">0</span>
+              <a class="count-name" href="/system/jobs/">Jobs</a>
             </div>
         </div>
 
         <div class="col-lg-3 rounded">
-            <div class="card-counter primary">
-              <i class="fas fa-house-user"></i>
-              <span class="count-numbers">8</span>
-              <a class="count-name" href="/system/household/">Household Variables</a>
+            <div class="card-counter danger">
+              <i class="fas fa-exclamation-triangle"></i>
+              <span class="count-numbers">0</span>
+              <a class="count-name" href="/system/jobs/">Person Vulnerabilities</a>
             </div>
         </div>
     </div>

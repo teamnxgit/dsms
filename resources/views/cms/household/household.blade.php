@@ -20,5 +20,37 @@
             
             {{Form::submit('Search',['class'=>'btn btn-primary col-lg-1 ml-lg-2 mb-2'])}}
         </div>
+
+        <div class="p-3 bg-light border rounded row m-1 mt-3">
+           <div class="table-responsive">
+                <table class="table" id="household">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th class="text-center">House Number</th>
+                            <th class="text-center">GN Division</th>
+                            <th class="text-center">Town / Village</th>
+                            <th class="text-center">Street</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($households as $household)
+                            <tr>
+                                <td class="text-center">{{$household->house_no}}</td>
+                                <td>{{$household->gndivision->number.' '.$household->gndivision->name}}</td>
+                                <td class="text-center">{{$household->town->name}}</td>
+                                <td>{{$household->street->name}}</td>
+                                <td class="text-center">
+                                    {!! Form::open(['url' => '/household/delete/']) !!}
+                                        <input type="hidden" name="id" value="{{$household->id}}">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                    {!! Form::close() !!}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+           </div>
+        </div>
     </div>
 @endsection

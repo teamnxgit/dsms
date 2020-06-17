@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Person;
 
-class HouseHold extends Model
+class Household extends Model
 {
     protected $fillable = ['house_no','gn_division_id','town_id','street_id','owner','gps'];
 
@@ -14,10 +14,18 @@ class HouseHold extends Model
     }
 
     public function gndivision(){
-        return $this->belongsTo('App\GnDivision');
+        return $this->belongsTo(GnDivision::class,'gn_division_id');
     }
 
     public function town(){
         return $this->belongsTo('App\Town');
+    }
+
+    public function street(){
+        return $this->belongsTo('App\Street');
+    }
+
+    public function electricitySources(){
+        return $this->belongsToMany(ElectricitySource::class);
     }
 }

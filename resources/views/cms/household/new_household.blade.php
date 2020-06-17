@@ -13,6 +13,7 @@
         {!! Form::open(['url' => '/household/new/add']) !!}
         <div class="p-3 bg-light border rounded row m-1">
             <div class="h5 col-12">Enter the details to add new household</div>
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">House No</span>
@@ -68,9 +69,7 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    {{Form::button('Save & + New Household',['class'=>'btn btn-secondary','name'=>'submit'])}}
-                    {{Form::submit('Save & Next',['class'=>'btn btn-success ml-2 ','name'=>'submit'])}}
-                    <a class="btn btn-primary ml-2" href="/household/update/essential/123">Next</a>
+                    {{Form::submit('Save',['class'=>'btn btn-success ml-2 ','name'=>'submit'])}}
                 </div>
         </div>
         {!! Form::close() !!}

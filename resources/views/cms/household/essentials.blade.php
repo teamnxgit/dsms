@@ -20,6 +20,13 @@
                     </div>
                     {{Form::text('house_no',$household->house_no,['class'=>'form-control','placeholder'=>'House No','readonly'])}}
                 </div>
+                
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">House No</span>
+                    </div>
+                    {{Form::text('house_no',$household->house_no,['class'=>'form-control','placeholder'=>'House No','readonly'])}}
+                </div>
 
                 <div class="input-group mb-3">
                     {{Form::submit('Save & Next',['class'=>'btn btn-success ml-2 '])}}

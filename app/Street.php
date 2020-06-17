@@ -20,7 +20,7 @@ class Street extends Model
         return $this->hasMany('App\Person');
     }
 
-    public function houseHolds(){
-        return $this->hasMany('App\HouseHold');
+    public function households(){
+        return $this->hasMany(Household::class);
     }
 }

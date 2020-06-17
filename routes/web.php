@@ -33,13 +33,14 @@ Route::get('/person/update/house/{id}', 'PersonController@house')->name('HouseDe
 Route::get('/person/update/occupation/{id}', 'PersonController@occupation')->name('Occupation Details');
 Route::get('/person/update/disability/{id}', 'PersonController@disability')->name('Disability Details');
 
+
 // Household
 /* Views */
 Route::get('/household', 'HouseholdController@index');
 Route::get('/household/search', 'HouseholdController@index');
 Route::get('/household/search/{id}', 'HouseholdController@search');
-Route::get('/household/view/basic/{id}', 'HouseholdController@basic')->name('Household Basic Details');
-Route::get('/household/view/essential/{id}', 'HouseholdController@essential')->name('Household Essential Details');
+Route::get('/household/view/{id}', 'HouseholdController@view')->name('View Household');
+
 Route::get('/household/view/facilities/{id}', 'HouseholdController@facilities')->name('Household Facilities');
 Route::get('/household/view/disaster/{id}', 'HouseholdController@disaster')->name('Household Disaster');
 Route::get('/household/new', 'HouseholdController@new')->name('New Household');
@@ -47,6 +48,7 @@ Route::get('/household/new', 'HouseholdController@new')->name('New Household');
 Route::post('/household/new/add', 'HouseholdController@add');
 Route::post('/household/update/essential/', 'HouseholdController@updateEssesntial');
 Route::post('/household/update/basic/', 'HouseholdController@updateBasic');
+Route::post('/household/delete/', 'HouseholdController@delete');
 
 
 
@@ -58,24 +60,28 @@ Route::post('/user/{id}/rempermission', 'UserController@remPermission');
 Route::post('/user/{id}/updateuser', 'UserController@updateUser');
 Route::get('/users/seed','UserController@seedUser');
 
+
 /* System Routes */
 Route::get('/system','SystemController@index');
+Route::get('/system/household','SystemController@household');
+Route::get('/system/person','SystemController@person');
 // GN Divisions
-Route::get('/system/gndivisions','SystemController@veiwGNDivision');
-Route::post('/system/gndivisions/add','SystemController@addGNDivision');
-Route::post('/system/gndivisions/rem','SystemController@remGNDivision');
+Route::get('/system/gndivisions','GNDivisionController@veiwGNDivision');
+Route::post('/system/gndivisions/add','GNDivisionController@addGNDivision');
+Route::post('/system/gndivisions/rem','GNDivisionController@remGNDivision');
 // Towns / Villages
-Route::get('/system/towns','SystemController@veiwTown');
-Route::post('/system/towns/add','SystemController@addTown');
-Route::post('/system/towns/rem','SystemController@remTown');
-Route::post('/system/towns/list','SystemController@listTown');
+Route::get('/system/towns','TownController@veiwTown');
+Route::post('/system/towns/add','TownController@addTown');
+Route::post('/system/towns/rem','TownController@remTown');
+Route::post('/system/towns/list','TownController@listTown');
 // Streets
-Route::get('/system/streets','SystemController@veiwStreet');
-Route::post('/system/streets/add','SystemController@addStreet');
-Route::post('/system/streets/rem','SystemController@remStreet');
-Route::post('/system/streets/list','SystemController@listStreet');
+Route::get('/system/streets','StreetController@veiwStreet');
+Route::post('/system/streets/add','StreetController@addStreet');
+Route::post('/system/streets/rem','StreetController@remStreet');
+Route::post('/system/streets/list','StreetController@listStreet');
+// Facility
+Route::get('/system/facilitytypes','FacilityController@veiwFacilityType');
+Route::post('/system/facilitytype/add','FacilityController@addFacilityType');
+Route::post('/system/facilitytype/rem','FacilityController@remFacilityType');
 
 });
-
-
-

@@ -8,10 +8,10 @@ use App\HouseHold;
 class Person extends Model
 {
     public function household(){
-        return $this->belongsTo('App\HouseHold');
+        return $this->belongsTo(Household::class);
     }
 
-    public function fgndivision(){
+    public function gndivision(){
         return $this->belongsTo('App\GnDivision');
     }
 

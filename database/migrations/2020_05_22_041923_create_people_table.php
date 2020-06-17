@@ -46,7 +46,7 @@ class CreatePeopleTable extends Migration
         Schema::table('people', function ($table) {
             $table->foreign('gn_division_id')->references('id')->on('gn_divisions');
             $table->foreign('town_id')->references('id')->on('towns');
-            $table->foreign('house_id')->references('id')->on('house_holds');
+            $table->foreign('house_id')->references('id')->on('households');
         });
 
     }

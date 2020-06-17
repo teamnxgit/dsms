@@ -8,8 +8,10 @@ class GnDivision extends Model{
 
     protected $fillable = ['number', 'name']; 
 
+    protected $table = 'gn_divisions';
+
     public function households(){
-        return $this->hasMany('App\HouseHold');
+        return $this->hasMany(Household::class);
     }
 
     public function people(){
