@@ -20,7 +20,7 @@ class UserController extends Controller
     public function user(Request $request){
         
         $roles = Role::all();
-        $user = User::findOrFail($request->id)->first();
+        $user = User::findOrFail($request->id);
 
         $user_permissions = $user->getAllPermissions();
 
