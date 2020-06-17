@@ -58,7 +58,8 @@ class HouseholdController extends Controller
         else {
             session()->flash('danger', 'Household already exist');
         }
-        return redirect('/household/view/essential/'. $household->id .'');
+        //return Redirect('/household/view/essential/'. $household->id .'');
+        return Redirect::back();
     }
 
     public function delete(Request $request){
