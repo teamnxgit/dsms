@@ -10,7 +10,7 @@
         <a class="nav-link" href="/person">Person</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/household">Household</a>
+        <a class="nav-link" href="/households">Households</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/benefit">Benefit</a>

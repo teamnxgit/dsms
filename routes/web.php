@@ -36,21 +36,14 @@ Route::get('/person/update/disability/{id}', 'PersonController@disability')->nam
 
 // Household
 /* Views */
-Route::get('/household', 'HouseholdController@index');
-Route::get('/household/search', 'HouseholdController@index');
-Route::get('/household/search/{id}', 'HouseholdController@search');
-Route::get('/household/view/{id}', 'HouseholdController@view')->name('View Household');
-
-Route::get('/household/view/facilities/{id}', 'HouseholdController@facilities')->name('Household Facilities');
-Route::get('/household/view/disaster/{id}', 'HouseholdController@disaster')->name('Household Disaster');
+Route::get('/households', 'HouseholdController@index');
+Route::get('/households/search/{id}', 'HouseholdController@search');
+Route::get('/household/view/{id}', 'HouseholdController@household')->name('Household');
 Route::get('/household/new', 'HouseholdController@new')->name('New Household');
 /* Functions */
 Route::post('/household/new/add', 'HouseholdController@add');
-Route::post('/household/update/essential/', 'HouseholdController@updateEssesntial');
-Route::post('/household/update/basic/', 'HouseholdController@updateBasic');
-Route::post('/household/delete/', 'HouseholdController@delete');
-
-
+Route::post('/household/delete', 'HouseholdController@delete');
+Route::post('/household/facility/add', 'HouseholdController@addFacility');
 
 // User
 Route::get('/users', 'UserController@index');
@@ -79,9 +72,13 @@ Route::get('/system/streets','StreetController@veiwStreet');
 Route::post('/system/streets/add','StreetController@addStreet');
 Route::post('/system/streets/rem','StreetController@remStreet');
 Route::post('/system/streets/list','StreetController@listStreet');
-// Facility
+// Facility Types
 Route::get('/system/facilitytypes','FacilityController@veiwFacilityType');
 Route::post('/system/facilitytype/add','FacilityController@addFacilityType');
 Route::post('/system/facilitytype/rem','FacilityController@remFacilityType');
+// Facilities
+Route::get('/system/facility/{shorthand}','FacilityController@veiwFacilities');
+Route::post('/system/facility/add','FacilityController@addFacility');
+Route::post('/system/facility/rem','FacilityController@remFacility');
 
 });

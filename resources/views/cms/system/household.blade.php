@@ -53,7 +53,13 @@
         <div class="col-lg-3 rounded">
             <div class="card-counter success">
               <i class="fas {{$facility_type->icon}}"></i>
-              <span class="count-numbers">0</span>
+              <span class="count-numbers">
+              @foreach($facilities_count as $facility_count)
+                @if($facility_count->type==$facility_type->id)
+                  {{$facility_count->total}}
+                @endif
+              @endforeach
+              </span>
               <a class="count-name" href="/system/facility/{{$facility_type->shorthand}}">{{$facility_type->name}}</a>
             </div>
         </div>

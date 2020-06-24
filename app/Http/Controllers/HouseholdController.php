@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\GnDivision;
 use App\Household;
 use App\Town;
+use App\FacilityType;
+use App\Facility;
 use Redirect;
 use Session;
 
@@ -13,7 +15,7 @@ class HouseholdController extends Controller
 {
     public function index(){
         $data['households'] = Household::all();
-        return view('cms.household.household')->with($data);
+        return view('cms.household.households')->with($data);
     }
 
     public function new(){
@@ -21,9 +23,11 @@ class HouseholdController extends Controller
         return view('cms.household.new_household')->with($data);
     }
 
-    public function essential($id){
+    public function household($id){
         $data['household'] = Household::findOrFail($id);
-        return view('cms.household.essentials')->with($data);
+        $data['facility_types'] = FacilityType::all();
+        $data['facilities'] = Facility::all();
+        return view('cms.household.household')->with($data);
     }
 
     public function add(Request $request){
@@ -72,16 +76,18 @@ class HouseholdController extends Controller
         return redirect::back();
     }
 
-    public function view($id){
+    public function addFacility(Request $request){
+        $validatedData = $request->validate([
+            'household_id' => 'required',
+            'facility_id' => 'required',
+            'description' => 'required',
+        ]);
 
-        $household = Household::findOrFail($id);
-        /*
-        $data['disasters'] = $household->disasters();
-        $data['water_sources'] = HouseholdWaterSource::where('house_id',$id);
-        $data['toilet_facilities'] = HouseholdToiletFacility::where('house_id',$id);
-        $data['cooking_facilities'] = HouseholdCookingFacility::where('house_id',$id);
-        $data['wastemanagements'] = HouseholdWasteManagement::where('house_id',$id);
-        $data['notes'] = HouseholdNote::where('house_id',$id);
-        */
+        $household=Household::findOrFail($request->input('household_id'));
+        $facility = Facility::findOrFail($request->input('facility_id'));
+        $household->facilities()->attach($facility,['description'=> $request->input('description')]);
+        session()->flash('success', 'Facilities added');
+        return redirect::back();
     }
+
 }

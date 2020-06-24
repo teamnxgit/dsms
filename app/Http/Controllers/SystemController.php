@@ -11,6 +11,7 @@ use App\FacilityType;
 use App\Facility;
 use Redirect;
 use Session;
+use DB;
 
 class SystemController extends Controller
 {
@@ -25,13 +26,10 @@ class SystemController extends Controller
         $data['facility_types_count'] = FacilityType::all()->count();
         $data['facility_types'] = FacilityType::all();
 
-        /*
-        $data['facility_counts'] = DB::table('facilities')
-                 ->select('facility_id', DB::raw('count(*) as total'))
-                 ->groupBy('facility_id')
+        $data['facilities_count'] = DB::table('facilities')
+                 ->select('type', DB::raw('count(*) as total'))
+                 ->groupBy('type')
                  ->get();
-        */
-        
         return view('cms.system.household')->with($data);
     }
 
@@ -41,6 +39,4 @@ class SystemController extends Controller
         $data['streets_count'] = Street::all()->count();
         return view('cms.system.person')->with($data);
     }
-
-
 }

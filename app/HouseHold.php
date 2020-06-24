@@ -25,7 +25,7 @@ class Household extends Model
         return $this->belongsTo('App\Street');
     }
 
-    public function electricitySources(){
-        return $this->belongsToMany(ElectricitySource::class);
+    public function facilities(){
+        return $this->belongsToMany(Facility::class,'facility_household','household_id','facility_id')->withPivot('description');
     }
 }

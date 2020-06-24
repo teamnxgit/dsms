@@ -6,7 +6,7 @@
     <div class="col-lg-12 p-3">
         <div class="row">
             <div class="col-12">
-                <div class="h3">Household Facilities & Sources</div>
+                <div class="h3">Household Facility - {{$facility_type->name}}</div>
             </div>
         </div>
         <hr>
@@ -17,9 +17,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Icon</th>
-                            <th scope="col">Facilities / Sources Type</th>
-                            <th scope="col">Shorthand</th>
+                            <th scope="col">Facilities / Sources Name</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -27,11 +25,10 @@
                         @foreach ($facilities as $facility)
                             <tr>
                                 <td>{{$facility->id}}</td>
-                                <td><i class="fas {{$facility->icon}}"></i></td>
                                 <td>{{$facility->name}}</td>
                                 <td>
-                                {!! Form::open(['url' => '/system/facilitytype/rem']) !!}
-                                    <input type="hidden" name="town_id" value="{{$facility->id}}">
+                                {!! Form::open(['url' => '/system/facility/rem']) !!}
+                                    <input type="hidden" name="id" value="{{$facility->id}}">
                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 {!! Form::close() !!}
                                 </td>
@@ -51,10 +48,10 @@
         <!-- Modal -->
         <div class="modal fade" id="townModal" tabindex="-1" role="dialog" aria-labelledby="townModal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-            {!! Form::open(['url' => '/system/facilitytype/add']) !!}
+            {!! Form::open(['url' => '/system/facility/add']) !!}
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Facilities / Sources Types</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add Facilities / Sources</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -68,15 +65,10 @@
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Short Hand</span>
+                                <span class="input-group-text" id="basic-addon1">Facility Type</span>
                             </div>
-                            {{Form::text('shorthand',null,['class'=>'form-control','placeholder'=>'URL Freindly Shorthand Name',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Icon</span>
-                            </div>
-                            {{Form::text('icon',null,['class'=>'form-control','placeholder'=>'Fontawesome Icon',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
+                            {{Form::text('facility_type',$facility_type->name,['class'=>'form-control','placeholder'=>'URL Freindly Shorthand Name','readonly'])}}
+                            {{Form::hidden('type',$facility_type->id,['class'=>'form-control','placeholder'=>'URL Freindly Shorthand Name','readonly'])}}
                         </div>
                     </div>
                     <div class="modal-footer">

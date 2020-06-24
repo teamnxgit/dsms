@@ -36,7 +36,7 @@
                                 <td>{{$user->role}}</td>
                                 <td>
                                     <a href="" class="btn btn-outline-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                    <a href="/user/{{$user->id}}" class="btn btn-outline-warning"><i class="fa fa-pencil text-dark" aria-hidden="true"></i></a>
+                                    <a href="/user/{{$user->id}}" class="btn btn-outline-warning"><i class="fa fa-edit text-dark" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
                         @endforeach
