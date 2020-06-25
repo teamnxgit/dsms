@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\GnDivision;
 use App\Household;
 use App\Town;
+use App\Street;
 use App\FacilityType;
 use App\Facility;
 use Redirect;
@@ -24,7 +25,11 @@ class HouseholdController extends Controller
     }
 
     public function household($id){
-        $data['household'] = Household::findOrFail($id);
+
+        $household = Household::findOrFail($id);
+        $data['household'] = $household;
+        $data['division_streets']=Street::where('gn_division_id',$household->gn_division_id)->get();
+        $data['division_towns']=Town::where('gn_division_id',$household->gn_division_id)->get();
         $data['facility_types'] = FacilityType::all();
         $data['facilities'] = Facility::all();
         return view('cms.household.household')->with($data);
@@ -76,6 +81,38 @@ class HouseholdController extends Controller
         return redirect::back();
     }
 
+    public function update(Request $request){
+        $request->validate([
+            'id' => 'required',
+            'house_no' => 'required',
+            'town_id' => 'required',
+            'street_id' => 'required',
+        ]);
+
+        $household=Household::findOrFail($request->input('id'));
+        
+        if ($household->house_no==$request->input('house_no')){
+
+        }
+        else {
+            if (Household::where('gn_division_id',$household->gn_division_id)->where('house_no',$household->house_no)->count()==0) {
+                $household->house_no = $request->input('house_no');
+            }
+            else{
+                session()->flash('danger', 'House number already exist');
+                return redirect::back();
+            }
+        }
+        
+        $household->town_id = $request->input('town_id');
+        $household->street_id = $request->input('street_id');
+        $household->owner = $request->input('owner');
+        $household->gps = $request->input('gps');
+        $household->save();
+        session()->flash('success', 'Household updated');
+        return redirect::back();
+    }
+
     public function addFacility(Request $request){
         $validatedData = $request->validate([
             'household_id' => 'required',
@@ -89,5 +126,20 @@ class HouseholdController extends Controller
         session()->flash('success', 'Facilities added');
         return redirect::back();
     }
+
+    public function remFacility(Request $request){
+        $validatedData = $request->validate([
+            'household_id' => 'required',
+            'facility_id' => 'required',
+        ]);
+
+        $household=Household::findOrFail($request->input('household_id'));
+        $facility = Facility::findOrFail($request->input('facility_id'));
+        $household->facilities()->detach($facility);
+        session()->flash('success', 'Facilities deleted');
+        return redirect::back();
+    }
+
+
 
 }

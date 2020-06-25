@@ -42,8 +42,10 @@ Route::get('/household/view/{id}', 'HouseholdController@household')->name('House
 Route::get('/household/new', 'HouseholdController@new')->name('New Household');
 /* Functions */
 Route::post('/household/new/add', 'HouseholdController@add');
+Route::post('/household/update', 'HouseholdController@update');
 Route::post('/household/delete', 'HouseholdController@delete');
 Route::post('/household/facility/add', 'HouseholdController@addFacility');
+Route::post('/household/facility/rem', 'HouseholdController@remFacility');
 
 // User
 Route::get('/users', 'UserController@index');
