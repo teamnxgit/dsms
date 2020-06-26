@@ -100,8 +100,38 @@
             <div class="h5 col-12">Household Vulnerabilities </div>
         </div>
 
-        <div class="p-3 bg-light border rounded row m-1 mt-3">
-            <div class="h5 col-12">Field Notes & Household Remarks</div>
+        <div id="accordion">
+            <div class="card border rounded m-1 mt-3">
+                <div class="card-header" id="headingOne">
+                    <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-" aria-expanded="true" aria-controls="collapseOne">
+                        Field Notes & Household Remarks <i class="fas fa-info float-right btn p-0 m-0"></i>
+                    </h5>
+                </div>
+                
+                <div id="collapse-" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach($household->fieldnotes as $note)
+                            <div class="col-lg-12 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title font-weight-bold">{{$note->heading}}</h5>
+                                        <p class="card-text">{{$note->note}}</p>
+                                        <p class="blockquote-footer mb-0">Field Date : {{$note->field_date}}</p>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        Note by : {{$note->user->name}} ({{$note->user->roles->first()->name}}) on {{$note->updated_at}}
+                                        <span class="float-right">{{Helper::time_elapsed_string($note->created_at)}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        {{$household->fieldnotes->links()}}
+                        <button class="btn btn-outline-success mt-3" data-toggle="modal" data-target="#Field-Note-Modal">+ Add Field Note</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         @foreach($facility_types as $facility_type)
@@ -201,5 +231,54 @@
             </div>
         </div>
     @endforeach
+
+    <!-- Modal Field Note-->
+    <div class="modal fade" id="Field-Note-Modal" tabindex="-1" role="dialog" aria-labelledby="Field-Note-Modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            {!! Form::open(['url' => '/household/fieldnote/add']) !!}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Field Note</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Household ID</span>
+                            </div>
+                            <input type="text" class="form-control" readonly name="household_id" value="{{$household->id}}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Field Date</span>
+                            </div>
+                            <input type="date" class="form-control" name="field_date">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Heading</span>
+                            </div>
+                            <input type="text" class="form-control" name="heading" placeholder="About Note">
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Description</span>
+                            </div>
+                            <textarea name="note" class="form-control" aria-label="With textarea" autocomplete="off" placeholder="Detailed diary notes"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Add">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
     
 @endsection

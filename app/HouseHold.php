@@ -28,4 +28,8 @@ class Household extends Model
     public function facilities(){
         return $this->belongsToMany(Facility::class,'facility_household','household_id','facility_id')->withPivot('description');
     }
+
+    public function fieldnotes(){
+        return $this->morphMany(FieldNote::class, 'notable');
+    }
 }

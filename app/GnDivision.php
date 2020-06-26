@@ -21,4 +21,8 @@ class GnDivision extends Model{
     public function towns(){
         return $this->hasMany('App\Town');
     }
+
+    public function notes(){
+        return $this->morphMany(FieldNote::class, 'notable');
+    }
 }

@@ -46,6 +46,7 @@ Route::post('/household/update', 'HouseholdController@update');
 Route::post('/household/delete', 'HouseholdController@delete');
 Route::post('/household/facility/add', 'HouseholdController@addFacility');
 Route::post('/household/facility/rem', 'HouseholdController@remFacility');
+Route::post('/household/fieldnote/add', 'HouseholdController@addFieldNote');
 
 // User
 Route::get('/users', 'UserController@index');
@@ -54,7 +55,6 @@ Route::post('/user/{id}/addpermission', 'UserController@addPermission');
 Route::post('/user/{id}/rempermission', 'UserController@remPermission');
 Route::post('/user/{id}/updateuser', 'UserController@updateUser');
 Route::get('/users/seed','UserController@seedUser');
-
 
 /* System Routes */
 Route::get('/system','SystemController@index');

@@ -26,4 +26,10 @@ class Person extends Model
     public function occupations(){
         return $this->belongsToMany('App\Job');
     }
+
+    public function notes(){
+        return $this->morphMany(FieldNote::class, 'notable');
+    }
+
+    
 }

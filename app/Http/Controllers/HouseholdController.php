@@ -11,6 +11,7 @@ use App\FacilityType;
 use App\Facility;
 use Redirect;
 use Session;
+use Auth;
 
 class HouseholdController extends Controller
 {
@@ -27,6 +28,7 @@ class HouseholdController extends Controller
     public function household($id){
 
         $household = Household::findOrFail($id);
+        $household->fieldnotes = $household->fieldnotes()->orderBy('created_at', 'desc')->paginate(10);
         $data['household'] = $household;
         $data['division_streets']=Street::where('gn_division_id',$household->gn_division_id)->get();
         $data['division_towns']=Town::where('gn_division_id',$household->gn_division_id)->get();
@@ -140,6 +142,28 @@ class HouseholdController extends Controller
         return redirect::back();
     }
 
+    public function addFieldNote(Request $request){
+        $request->validate([
+            'household_id' => 'required',
+            'field_date' => 'required',
+            'heading' => 'required',
+            'note' => 'required'
+        ]);
 
+        $household=Household::findOrFail($request->input('household_id'));
+        $current_user = Auth::user();
+
+        $household->fieldnotes()->create([
+            'heading'=>$request->input('heading'),
+            'field_date'=>$request->input('field_date'),
+            'note'=>$request->input('note'),
+            'notable_id'=>$request->input('household_id'),
+            'user_id'=>$current_user->id,
+            'notable_type'=>Household::class
+        ]);
+
+        session()->flash('success', 'Note Added');
+        return redirect::back();
+    }
 
 }

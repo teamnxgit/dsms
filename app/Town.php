@@ -19,4 +19,9 @@ class Town extends Model
     public function households(){
         return $this->hasMany(Household::class);
     }
+
+    public function notes(){
+        return $this->morphMany(FieldNote::class, 'notable');
+    }
+    
 }
