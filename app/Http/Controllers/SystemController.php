@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\GnDivision;
 use App\Town;
 use App\Street;
-use App\ElectricitySource;
 use App\FacilityType;
 use App\Facility;
+use App\VulnerabilityType;
 use Redirect;
 use Session;
 use DB;
@@ -38,5 +38,31 @@ class SystemController extends Controller
         $data['towns_count'] = Town::all()->count();
         $data['streets_count'] = Street::all()->count();
         return view('cms.system.person')->with($data);
+    }
+
+    public function HouseholdVulnerabilityTypes(){
+        $data['vulnerability_types'] = VulnerabilityType::all();
+        return view('cms.system.household.vulnerability')->with($data);
+    }
+
+    public function addHouseholdVulnerabilityTypes(Request $request){
+        $request->validate([
+            'name'=>'required'
+        ]);
+        $vulnerability_type = VulnerabilityType::updateOrCreate(
+            ['category'=>'household','name'=>$request->input('name'),'icon'=>$request->input('icon')]
+        );
+        session()->flash('success', 'Household Vulnerability Type Created');
+        return redirect()->back();
+    }
+
+    public function remHouseholdVulnerabilityTypes(Request $request){
+        $request->validate([
+            'type_id'=>'required'
+        ]);
+        $vulnerable_type = VulnerabilityType::findOrFail($request->input('type_id'));
+        $vulnerable_type->delete();
+        session()->flash('success', 'Household Vulnerability Type Deleted');
+        return redirect()->back();
     }
 }

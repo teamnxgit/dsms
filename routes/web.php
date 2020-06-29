@@ -82,5 +82,9 @@ Route::post('/system/facilitytype/rem','FacilityController@remFacilityType');
 Route::get('/system/facility/{shorthand}','FacilityController@veiwFacilities');
 Route::post('/system/facility/add','FacilityController@addFacility');
 Route::post('/system/facility/rem','FacilityController@remFacility');
+// Vulnerability
+Route::get('/system/household/vulnerability/','SystemController@HouseholdVulnerabilityTypes');
+Route::post('/system/household/vulnerability/add','SystemController@addHouseholdVulnerabilityTypes');
+Route::post('/system/household/vulnerability/rem','SystemController@remHouseholdVulnerabilityTypes');
 
 });

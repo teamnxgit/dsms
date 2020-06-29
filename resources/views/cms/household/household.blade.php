@@ -115,7 +115,7 @@
                             <div class="col-lg-12 mb-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title font-weight-bold">{{$note->heading}}</h5>
+                                        <h5 class="card-title font-weight-bold">{{$note->heading}}<span><button class="btn btn-danger float-right"><i class="fa fa-trash" aria-hidden="true"></i></button></span></h5>
                                         <p class="card-text">{{$note->note}}</p>
                                         <p class="blockquote-footer mb-0">Field Date : {{$note->field_date}}</p>
                                     </div>

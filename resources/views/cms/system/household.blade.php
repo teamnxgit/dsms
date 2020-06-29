@@ -75,7 +75,7 @@
             <div class="card-counter danger">
               <i class="fas fa-exclamation-triangle"></i>
               <span class="count-numbers">0</span>
-              <a class="count-name" href="/system/jobs/">Household Vulnerabilities</a>
+              <a class="count-name" href="/system/household/vulnerability/">Household Vulnerabilities</a>
             </div>
         </div>
     </div>
