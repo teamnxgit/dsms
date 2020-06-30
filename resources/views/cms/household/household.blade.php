@@ -91,20 +91,58 @@
                 
         </div>
 
-        <div class="p-3 bg-light border rounded row m-1 mt-3 card">
-            <div class="h5 col-12">Household Members </div>
-            
+        <div id="accordion-vulerability">
+            <div class="card border rounded m-1 mt-3">
+                <div class="card-header" id="headingOne">
+                    <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-vulerability" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fas fa-users pt-0 pr-2 float-left btn p-0 m-0"></i> Household Members <i class="fas fa-info float-right btn p-0 m-0"></i>
+                    </h5>
+                </div>
+                
+                <div id="collapse-vulerability" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-vulerability">
+                    <div class="card-body">
+                        <div class="row">
+                            
+                        </div>
+                        <button class="btn btn-outline-success mt-3" data-toggle="modal" data-target="#Field-vulnerability-Modal">+ Add Member</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="p-3 bg-light border rounded row m-1 mt-3">
-            <div class="h5 col-12">Household Vulnerabilities </div>
+        <div id="accordion-vulerability">
+            <div class="card border rounded m-1 mt-3">
+                <div class="card-header" id="headingOne">
+                    <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-vulerability" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fas fa-exclamation-triangle pt-0 pr-2 float-left btn p-0 m-0"></i> Household Vulnerabilities <i class="fas fa-info float-right btn p-0 m-0"></i>
+                    </h5>
+                </div>
+                
+                <div id="collapse-vulerability" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-vulerability">
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach($household->vulnerable as $vulnerablity)
+                            <div class="card mx-3">
+                                <div class="card-body">
+                                    <i class="fas fa-4x {{$vulnerablity->type->icon}} position-absolute text-danger" style="opacity: 0.2;bottom:10px;right:10px"></i>
+                                    <h5 class="card-title">{{$vulnerablity->type->name}} <span class="float-right"><button class="btn btn-danger"><i class="fas fa-trash "></i></button></span></h5>
+                                    <p class="card-text">{{$vulnerablity->note}}</p>
+                                    <p class="blockquote-footer">Updated by {{$vulnerablity->user->name}} on {{$vulnerablity->updated_at}}</p>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        <button class="btn btn-outline-success mt-3" data-toggle="modal" data-target="#Household-Vulnerability-Modal">+ Add Household Vulnerabilities</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="accordion">
             <div class="card border rounded m-1 mt-3">
                 <div class="card-header" id="headingOne">
                     <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-" aria-expanded="true" aria-controls="collapseOne">
-                        Field Notes & Household Remarks <i class="fas fa-info float-right btn p-0 m-0"></i>
+                    <i class="far fa-sticky-note pt-0 pr-2 float-left btn p-0 m-0"></i> Field Notes & Household Remarks <i class="fas fa-info float-right btn p-0 m-0"></i>
                     </h5>
                 </div>
                 
@@ -139,7 +177,7 @@
             <div class="card border rounded m-1 mt-3">
                 <div class="card-header" id="headingOne">
                     <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-{{$facility_type->shorthand}}" aria-expanded="true" aria-controls="collapseOne">
-                        {{$facility_type->name}} <i class="fas fa-info float-right btn p-0 m-0"></i>
+                    <i class="fas {{$facility_type->icon}} pt-0 pr-2 float-left btn p-0 m-0"></i> {{$facility_type->name}} <i class="fas fa-info float-right btn p-0 m-0"></i>
                     </h5>
                 </div>
                 
@@ -178,8 +216,22 @@
         </div>
         @endforeach
 
-        <div class="p-3 bg-light border rounded row m-1 mt-3">
-            <div class="h5 col-12">Map</div>
+        <div id="accordion-vulerability">
+            <div class="card border rounded m-1 mt-3">
+                <div class="card-header" id="headingOne">
+                    <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-vulerability" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fas fa-map pt-0 pr-2 float-left btn p-0 m-0"></i> Map <i class="fas fa-info float-right btn p-0 m-0"></i>
+                    </h5>
+                </div>
+                
+                <div id="collapse-vulerability" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-vulerability">
+                    <div class="card-body">
+                        <div class="row">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -272,6 +324,53 @@
                             <textarea name="note" class="form-control" aria-label="With textarea" autocomplete="off" placeholder="Detailed diary notes"></textarea>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Add">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+
+    <!-- Modal Vulnerability-->
+    <div class="modal fade" id="Household-Vulnerability-Modal" tabindex="-1" role="dialog" aria-labelledby="Household-Vulnerability-Modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            {!! Form::open(['url' => '/household/vulnerability/add']) !!}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Household Vulnerablity</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Household ID</span>
+                            </div>
+                            <input type="text" class="form-control" readonly name="household_id" value="{{$household->id}}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Vulnerability</span>
+                            </div>
+                            <select name="vulnerablity_type_id" class="form-control">
+                                @foreach($household_vulnerability_types as $type)
+                                    <option value="{{$type->id}}">{{$type->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Note</span>
+                            </div>
+                            <textarea name="note" class="form-control" aria-label="With textarea" autocomplete="off" placeholder="Details about vulnerability"></textarea>
+                        </div>
+                    </div>
+
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-success" value="Add">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

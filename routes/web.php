@@ -47,6 +47,8 @@ Route::post('/household/delete', 'HouseholdController@delete');
 Route::post('/household/facility/add', 'HouseholdController@addFacility');
 Route::post('/household/facility/rem', 'HouseholdController@remFacility');
 Route::post('/household/fieldnote/add', 'HouseholdController@addFieldNote');
+Route::post('/household/vulnerability/rem', 'HouseholdController@remVulnerability');
+Route::post('/household/vulnerability/add', 'HouseholdController@addVulnerability');
 
 // User
 Route::get('/users', 'UserController@index');

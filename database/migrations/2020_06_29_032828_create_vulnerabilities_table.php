@@ -17,12 +17,12 @@ class CreateVulnerabilitiesTable extends Migration
             $table->id();
             $table->longText('note');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('vulnerablity_type_id'); // Type of Vulnerability
-            $table->unsignedBigInteger('vulnerable_id');    // Model ID
-            $table->string('vulnerable_type');      //Moddel Name
+            $table->unsignedBigInteger('vulnerablity_type_id'); // Type of Vulnerability ()
+            $table->unsignedBigInteger('vulnerable_id');        // Model instance ID (Household ID / Person ID)
+            $table->string('vulnerable_type');                  // Moddel Name
             $table->timestamps();
         });
-
+        
         Schema::table('vulnerabilities', function ($table) {
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('vulnerablity_type_id')->references('id')->on('vulnerability_types');

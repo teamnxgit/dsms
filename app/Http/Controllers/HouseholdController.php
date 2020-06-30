@@ -9,6 +9,7 @@ use App\Town;
 use App\Street;
 use App\FacilityType;
 use App\Facility;
+use App\VulnerabilityType;
 use Redirect;
 use Session;
 use Auth;
@@ -34,6 +35,7 @@ class HouseholdController extends Controller
         $data['division_towns']=Town::where('gn_division_id',$household->gn_division_id)->get();
         $data['facility_types'] = FacilityType::all();
         $data['facilities'] = Facility::all();
+        $data['household_vulnerability_types']=VulnerabilityType::where('category','household')->get();
         return view('cms.household.household')->with($data);
     }
 
@@ -163,6 +165,27 @@ class HouseholdController extends Controller
         ]);
 
         session()->flash('success', 'Note Added');
+        return redirect::back();
+    }
+
+    public function addVulnerability(Request $request){
+        $request->validate([
+            'household_id'=>'required',
+            'note'=>'required',
+            'vulnerablity_type_id'=>'required',
+        ]);
+
+        $current_user = Auth::user();
+        $household=Household::findOrFail($request->input('household_id'));
+        $household->vulnerable()->create([
+            'note'=>$request->input('note'),
+            'user_id'=>$current_user->id,
+            'vulnerablity_type_id'=>$request->input('vulnerablity_type_id'),
+            'vulnerable_id'=>$request->input('house_id'),
+            'vulnerable_type'=> Household::class
+        ]);
+
+        session()->flash('success', 'Vulnerability Added');
         return redirect::back();
     }
 

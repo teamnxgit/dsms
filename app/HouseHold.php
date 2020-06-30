@@ -32,4 +32,8 @@ class Household extends Model
     public function fieldnotes(){
         return $this->morphMany(FieldNote::class, 'notable');
     }
+
+    public function vulnerable(){
+        return $this->morphMany(Vulnerability::class,'vulnerable');
+    }
 }

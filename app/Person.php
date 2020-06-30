@@ -30,4 +30,8 @@ class Person extends Model
     public function notes(){
         return $this->morphMany(FieldNote::class, 'notable');
     }
+
+    public function vulnerable(){
+        return $this->morphMany(Vulnerability::class,'vulnerable');
+    }
 }
