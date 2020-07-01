@@ -24,6 +24,7 @@ class CreateVulnerabilitiesTable extends Migration
         });
         
         Schema::table('vulnerabilities', function ($table) {
+            $table->unique(['vulnerablity_type_id','vulnerable_id','vulnerable_type'],'vulnerability');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('vulnerablity_type_id')->references('id')->on('vulnerability_types');
         });

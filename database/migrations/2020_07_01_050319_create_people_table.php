@@ -20,7 +20,7 @@ class CreatePeopleTable extends Migration
             $table->unsignedBigInteger('gn_division_id');
             $table->unsignedBigInteger('town_id');
             $table->string('nic',15)->unique()->nullable();
-            $table->unsignedBigInteger('house_id')->nullable();
+            $table->unsignedBigInteger('household_id')->nullable();
 
             $table->string('name_with_initials')->nullable();
             $table->string('maritial_status', 10)->nullable();
@@ -46,7 +46,7 @@ class CreatePeopleTable extends Migration
         Schema::table('people', function ($table) {
             $table->foreign('gn_division_id')->references('id')->on('gn_divisions');
             $table->foreign('town_id')->references('id')->on('towns');
-            $table->foreign('house_id')->references('id')->on('households');
+            $table->foreign('household_id')->references('id')->on('households');
         });
 
     }

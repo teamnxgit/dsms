@@ -3,6 +3,8 @@
 @section('content')
 
 @include('navbar.person')
+
+@can('Person & Household')
     <div class="col-lg-12 p-3">
         <div class="row">
             <div class="col-4">
@@ -62,4 +64,6 @@
            </div>
         </div>
     </div>
+@endcan
+
 @endsection

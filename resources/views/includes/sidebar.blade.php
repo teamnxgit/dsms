@@ -20,22 +20,23 @@ if (Auth::check()) {
     <div class="links border-bottom border-secondary py-3 text-light list-group list-group-flush">
     
         <a href="/dashbaord" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fas fa-tachometer-alt mr-3" aria-hidden="true"></i>Dashboard</a>
-        @can('View Person')
+        @can('Person & Household')
             <a href="/person" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-user mr-3" aria-hidden="true"></i>Person & Household</a>
         @endcan
 
-        @can('View Attendance')
+        @can('Attendance')
             <a href="/attendance" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-briefcase pr-2" aria-hidden="true"></i> Attendance &amp; Leave</a>
         @endcan
 
-        @can('View Social Security')
+        @can('Social Security')
             <a href="/household" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-users mr-3" aria-hidden="true"></i>Social Security</a>
         @endcan
 
-        @can('View Samurdhi')
+        @can('Samurdhi')
         <a href="/socialsecurity" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fas fa-hands-helping mr-3" aria-hidden="true"></i>Samurdhi</a>
         @endcan
-        @can('View Users')
+
+        @can('Super Admin')
         <a href="/users" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-user mr-3" aria-hidden="true"></i>User Accounts</a>
         @endcan
 

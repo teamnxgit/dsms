@@ -2,7 +2,7 @@
 
 @section('content')
 
-@can('View Users')
+@can('Super Admin')
     @include('navbar.users')
         <div class="col-lg-12 p-3">
             <div class="row">
@@ -53,7 +53,7 @@
                 </div>
                 {{Form::button('Update Basic Info',['class'=>'btn btn-success'])}}
             </div>
-            @can('User Password')
+
             <div class="p-3 bg-light border rounded row m-1 mt-3">
                 <div class="h5 col-12">Quick Password Change</div>
 
@@ -66,9 +66,9 @@
 
                 <button class="btn btn-success ">Change Password</button>
             </div>
-            @endcan
 
-            @can('User Permission')
+
+
             <div class="p-3 bg-light border rounded row m-1 mt-3">
                 <div class="h5 col-12">User Permissions</div>
                 <div class="table-responsive">
@@ -104,10 +104,9 @@
                     </table>
                 </div>
             </div>
-            @endcan
+
         </div>
 
-        @can('User Permission')
         <!-- Modal -->
         <div class="modal fade" id="userPermissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -142,7 +141,6 @@
                 </div>
             </div>
         </div>
-        @endcan
     @endsection
 @else
     <div class="col-lg-12 p-3">

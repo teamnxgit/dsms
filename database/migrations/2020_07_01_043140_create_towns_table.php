@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVulnerabilityTypesTable extends Migration
+class CreateTownsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,19 @@ class CreateVulnerabilityTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vulnerability_types', function (Blueprint $table) {
+        Schema::create('towns', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
+
             $table->string('name');
-            $table->string('icon');
+            $table->unsignedBigInteger('gn_division_id');
             $table->timestamps();
+            
+            
+        });
+
+        Schema::table('towns', function($table){
+            $table->unique(['gn_division_id','name']);
+            $table->foreign('gn_division_id')->references('id')->on('gn_divisions');
         });
     }
 
@@ -29,6 +36,6 @@ class CreateVulnerabilityTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vulnerability_types');
+        Schema::dropIfExists('towns');
     }
 }

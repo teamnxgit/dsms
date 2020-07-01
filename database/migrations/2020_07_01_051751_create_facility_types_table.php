@@ -4,23 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFacilitiesTable extends Migration
+class CreateFacilityTypesTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    protected $fillable = ['type','name'];
     public function up()
     {
-        Schema::create('facilities', function (Blueprint $table) {
+        Schema::create('facility_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('type');
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('shorthand')->unique();
+            $table->string('icon');
             $table->timestamps();
-
-            $table->foreign('type')->references('id')->on('facility_types');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateFacilitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('facilities');
+        Schema::dropIfExists('facility_types');
     }
 }

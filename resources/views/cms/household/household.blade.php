@@ -3,6 +3,8 @@
 @section('content')
 
 @include('navbar.person')
+
+@can('Person & Household')
     <div class="col-lg-12 p-3">
         <div class="row">
             <div class="col-12">
@@ -83,10 +85,12 @@
                     {{Form::submit('Update',['class'=>'btn btn-success ml-2 '])}}
                     {!! Form::close() !!}
 
+                    @can('Person & Household Admin')
                     {!! Form::open(['url' => '/household/delete']) !!}
                         <input type="hidden" name="id" value="{{$household->id}}">
                         {{Form::submit('Delete',['class'=>'btn btn-danger ml-2 '])}}
                     {!! Form::close() !!}
+                    @endcan
                 </div>
                 
         </div>
@@ -196,13 +200,19 @@
                                     @foreach($household->facilities as $housefacility)
                                         @if($housefacility->type==$facility_type->id)
                                         <tr>
-                                            {!! Form::open(['url' => '/household/facility/rem']) !!}
-                                            <input type="hidden" name="household_id" value="{{$household->id}}">
-                                            <input type="hidden" name="facility_id" value="{{$housefacility->id}}">
+                                            
                                             <td>{{$housefacility->id}} - {{$housefacility->name}}</td>
                                             <td>{{$housefacility->pivot->description}}</td>
-                                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                                            {!! Form::close() !!}
+                                            <td>
+                                                @can('Person & Household Admin')
+                                                    {!! Form::open(['url' => '/household/facility/rem']) !!}
+                                                    <input type="hidden" name="household_id" value="{{$household->id}}">
+                                                    <input type="hidden" name="facility_id" value="{{$housefacility->id}}">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                    {!! Form::close() !!}
+                                                @endcan
+                                            </td>
+                                            
                                         </tr>
                                         @endif
                                     @endforeach
@@ -379,5 +389,6 @@
                 </div>
             </div>
         </div>
-    
+@endcan
+
 @endsection
