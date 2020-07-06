@@ -18,7 +18,7 @@
         <div class="p-3 bg-light border rounded row m-1">
             <div class="h5 col-12">Search Household</div>
             {{Form::label('search',null,['class'=>'col-lg-1 pt-1'])}}
-            {{Form::text('search',null,['class'=>'form-control col-lg-5 mb-2','placeholder'=>'Search House No | Street Name'])}}
+            {{Form::text('search',null,['class'=>'form-control col-lg-9 mb-2','placeholder'=>'Search House No | Street Name'])}}
             
             {{Form::submit('Search',['class'=>'btn btn-primary col-lg-1 ml-lg-2 mb-2'])}}
         </div>
