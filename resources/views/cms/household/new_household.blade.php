@@ -52,13 +52,6 @@
 
                     </select>
                 </div>
-            
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Owner</span>
-                    </div>
-                    {{Form::text('owner_nic',null,['class'=>'form-control','placeholder'=>'NIC number of the owner',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
-                </div>
                 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">

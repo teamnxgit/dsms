@@ -66,13 +66,6 @@
                         @endforeach
                     </select>
                 </div>
-                
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Owner</span>
-                    </div>
-                    {{Form::text('owner',$household->owner,['class'=>'form-control','placeholder'=>'NIC Number of owner'])}}
-                </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -105,8 +98,25 @@
                 
                 <div id="collapse-vulerability" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-vulerability">
                     <div class="card-body">
-                        <div class="row">
-                            
+                        <div class="row table-responsive">
+                            <table class="table">
+                                <tr class="thead-dark">
+                                    <th>ID</th>
+                                    <th>NIC</th>
+                                    <th>Full Name</th>
+                                    <th>Age</th>
+                                    <th>Action</th>
+                                </tr>
+                                @foreach($household->people as $person)
+                                    <tr>
+                                        <td>{{$person->id}}</td>
+                                        <td>{{$person->nic}}</td>
+                                        <td>{{$person->full_name}}</td>
+                                        <td>{{$person->age}}</td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
+                            </table>
                         </div>
                         <button class="btn btn-outline-success mt-3" data-toggle="modal" data-target="#Field-vulnerability-Modal">+ Add Member</button>
                     </div>

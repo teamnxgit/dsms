@@ -28,7 +28,7 @@
                 <table class="table" id="household">
                     <thead class="thead-dark">
                         <tr>
-                            <th class="text-center"></th>
+                            <th class="text-center"><i class="fas fa-users"></i></th>
                             <th class="text-center">House Number</th>
                             <th class="text-center">GN Division</th>
                             <th class="text-center">Town / Village</th>
@@ -39,7 +39,7 @@
                     <tbody>
                         @foreach($households as $household)
                             <tr>
-                                <td class="text-center text-primary"><i class="fas fa-users"></i></td>
+                                <td class="text-center text-primary">{{$household->people->count()}}</td>
                                 <td class="text-center">{{$household->house_no}}</td>
                                 <td>{{$household->gndivision->number.' '.$household->gndivision->name}}</td>
                                 <td class="text-center">{{$household->town->name}}</td>

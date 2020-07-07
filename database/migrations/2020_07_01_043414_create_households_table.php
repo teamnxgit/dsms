@@ -19,7 +19,6 @@ class CreateHouseholdsTable extends Migration
             $table->unsignedBigInteger('town_id');
             $table->unsignedBigInteger('street_id');
             $table->unsignedBigInteger('gn_division_id');
-            $table->string('owner')->nullable();
             $table->string('gps')->nullable();
             $table->timestamps();
         });
