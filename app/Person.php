@@ -12,11 +12,11 @@ class Person extends Model
     }
 
     public function gndivision(){
-        return $this->belongsTo('App\GnDivision');
+        return $this->belongsTo('App\GnDivision','gn_division_id');
     }
 
     public function town(){
-        return $this->belongsTo('App\Town');
+        return $this->belongsTo('App\Town','town_id');
     }
 
     public function disabilities(){

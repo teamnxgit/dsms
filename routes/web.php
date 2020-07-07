@@ -28,10 +28,8 @@ Route::get('/person/search', 'PersonController@index')->name('Person');
 Route::get('/person/search/{id}', 'PersonController@search')->name('person');
 Route::get('/person/details/{id}', 'PersonController@person')->name('Person');
 Route::get('/person/new', 'PersonController@new')->name('New Person');
-Route::get('/person/update/essential/{id}', 'PersonController@essential')->name('Essential Details');
-Route::get('/person/update/house/{id}', 'PersonController@house')->name('HouseDetails');
-Route::get('/person/update/occupation/{id}', 'PersonController@occupation')->name('Occupation Details');
-Route::get('/person/update/disability/{id}', 'PersonController@disability')->name('Disability Details');
+/* Functions */
+Route::post('/person/new/add', 'PersonController@add');
 
 
 // Household
@@ -88,5 +86,9 @@ Route::post('/system/facility/rem','FacilityController@remFacility');
 Route::get('/system/household/vulnerability/','SystemController@HouseholdVulnerabilityTypes');
 Route::post('/system/household/vulnerability/add','SystemController@addHouseholdVulnerabilityTypes');
 Route::post('/system/household/vulnerability/rem','SystemController@remHouseholdVulnerabilityTypes');
+
+// Household
+Route::post('/system/households/list','HouseholdController@listHousehold');
+
 
 });

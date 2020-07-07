@@ -10,87 +10,109 @@
             </div>
         </div>
         <hr>
+        {!! Form::open(['url' => '/person/new/add']) !!}
         <div class="p-3 bg-light border rounded row m-1">
+        
             <div class="h5 col-12">Enter the details to add new person</div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Full Name</span>
-                    </div>
-                    {{Form::text('fullname',null,['class'=>'form-control','placeholder'=>'Full Name of the person',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose Gender...</option>
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                        <option value="O">Other</option>
-                    </select>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">GN Division</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose Grama Niladhari Division...</option>
-                        <option value="207">207 - Meeravodai West</option>
-                        <option value="207A">207A - Mancholai</option>
-                        <option value="207B">207B - Meeravodai East</option>
-                        <option value="208">208 - Oddamavadi 03</option>
-                        <option value="208B">208B - Oddamavadi 01 South</option>
-                        <option value="208B/2">208B/2 - Oddamavadi 01 North</option>
-                        <option value="208C">208C - Oddamavadi 02</option>
-                        <option value="210B">210B - Paper Town</option>
-                    </select>
-                </div>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Village / Town</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose village / town...</option>
-                        <option value="207">207 - Meeravodai West</option>
-                        <option value="207A">207A - Mancholai</option>
-                        <option value="207B">207B - Meeravodai East</option>
-                        <option value="208">208 - Oddamavadi 03</option>
-                        <option value="208B">208B - Oddamavadi 01 South</option>
-                        <option value="208B/2">208B/2 - Oddamavadi 01 North</option>
-                        <option value="208C">208C - Oddamavadi 02</option>
-                        <option value="210B">210B - Paper Town</option>
-                    </select>
-                </div>
             
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">NIC</span>
-                    </div>
-                    {{Form::text('fullname',null,['class'=>'form-control','placeholder'=>'NIC Number',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">GN Division</label>
                 </div>
-                
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">House No</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose House...</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="2">2/A</option>
-                    </select>
-                    {{Form::submit('+ House',['class'=>'btn btn-outline-success ml-2'])}}
+                <select class="custom-select" name="gn_division_id" id="gn_division">
+                    <option selected>Choose Grama Niladhari Division...</option>
+                    @foreach($gn_divisions as $gn_division)
+                    <option value="{{$gn_division->id}}">{{$gn_division->number}} - {{$gn_division->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Village / Town</label>
                 </div>
-                
-                <div class="input-group mb-3">
-                    {{Form::submit('Save & + New Person',['class'=>'btn btn-secondary '])}}
-                    {{Form::submit('Save',['class'=>'btn btn-success ml-2 '])}}
-                    <a class="btn btn-primary ml-2" href="/person/update/essential/123">Next</a>
+                <select class="custom-select" id="town" name="town_id">
+
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">House No</label>
                 </div>
+                <select class="custom-select" id="household" name="household_id">
+                    
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Full Name</span>
+                </div>
+                {{Form::text('fullname',null,['class'=>'form-control','placeholder'=>'Full Name of the person',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">NIC</span>
+                </div>
+                {{Form::text('nic',null,['class'=>'form-control','placeholder'=>'NIC Number',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
+            </div>
             
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+                </div>
+                <select class="custom-select" id="gender" name="gender">
+                    <option selected>Choose Gender...</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                    <option value="O">Other</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Voters List Serial</span>
+                </div>
+                {{Form::text('vote_list_no',null,['class'=>'form-control','placeholder'=>'Voters List Serial Number',"aria-label"=>"Full Name","aria-describedby"=>"basic-addon1"])}}
+            </div>
+
+            <div class="input-group mb-3">
+                {{Form::submit('Save',['class'=>'btn btn-success ml-2 '])}}
+            </div>
+            {!! Form::close() !!}
         </div>
     </div>
+    <script type="application/javascript">
+        $(document).ready(function(){
+            $(document).on('change','#gn_division',function(event){
+                event.preventDefault();
+                fetch_towns_households();
+            });
+        });
+
+        function fetch_towns_households(){
+        var gn_division = $("#gn_division").val();
+            $.ajax({
+                data: {gn_division_id: gn_division},
+                type:'POST',
+                url:"/system/towns/list",
+                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    $('#town').html(data);
+                }
+            });
+
+            $.ajax({
+                data: {gn_division_id: gn_division},
+                type:'POST',
+                url:"/system/households/list",
+                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data){
+                    $('#household').html(data);
+                }
+            });
+        }
+    </script>
 @endsection
