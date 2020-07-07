@@ -131,7 +131,14 @@
                                     <i class="fas fa-4x {{$vulnerablity->type->icon}} position-absolute text-danger" style="opacity: 0.2;bottom:10px;right:10px"></i>
                                     <h5 class="card-title">{{$vulnerablity->type->name}} <span class="float-right"><button class="btn btn-danger"><i class="fas fa-trash "></i></button></span></h5>
                                     <p class="card-text">{{$vulnerablity->note}}</p>
-                                    <p class="blockquote-footer">Updated by {{$vulnerablity->user->name}} on {{$vulnerablity->updated_at}}</p>
+                                    
+                                    <p class="blockquote-footer">
+                                                                                            
+                                    @can('Person & Household Admin')
+                                    Updated by {{$vulnerablity->user->name}} on {{$vulnerablity->updated_at}}
+                                    @endcan
+                                    </p>
+                                    
                                 </div>
                             </div>
                             @endforeach
