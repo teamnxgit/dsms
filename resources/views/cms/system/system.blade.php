@@ -10,7 +10,7 @@
             </div>
         </div>
         <hr>
-        
+        @can('Person & Household Admin')
         <div class="col-lg-3 rounded">
             <div class="card-counter danger">
               <i class="fas fa-user-friends"></i>
@@ -18,7 +18,8 @@
               <a class="count-name" href="/system/person/">Person Variables</a>
             </div>
         </div>
-
+        @endcan
+        @can('Person & Household Admin')
         <div class="col-lg-3 rounded">
             <div class="card-counter primary">
               <i class="fas fa-house-user"></i>
@@ -26,6 +27,7 @@
               <a class="count-name" href="/system/household/">Household Variables</a>
             </div>
         </div>
+        @endcan
     </div>
     
     <style>

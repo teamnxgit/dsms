@@ -13,7 +13,13 @@ if (Auth::check()) {
         </div>
         <div class="col-8 p-0">
             <h6 class="display p-0 m-0 pt-1 mt-1">{{Auth::user()->name}}</h6> 
-            <div class="pt-0 mt-0 ">{{Auth::user()->roles->first()->name}}</div>
+            <div class="pt-0 mt-0 ">
+                @php
+                if(isset(Auth::user()->roles->first)){
+                    echo Auth::user()->roles->first()->name;
+                }
+                @endphp
+                </div>
         </div>
     </div>
 

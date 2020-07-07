@@ -11,10 +11,12 @@
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
+                           
                         </div>
                     @endif
 
                     You are logged in!
+                    <a href="/person">Goto Person & Household</a>
                 </div>
             </div>
         </div>

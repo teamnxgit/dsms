@@ -126,14 +126,13 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach($household->vulnerable as $vulnerablity)
-                            <div class="card mx-3">
+                            <div class="card mx-3 mb-3">
                                 <div class="card-body">
                                     <i class="fas fa-4x {{$vulnerablity->type->icon}} position-absolute text-danger" style="opacity: 0.2;bottom:10px;right:10px"></i>
-                                    <h5 class="card-title">{{$vulnerablity->type->name}} <span class="float-right"><button class="btn btn-danger"><i class="fas fa-trash "></i></button></span></h5>
+                                    <h5 class="card-title">{{$vulnerablity->type->name}} <span class="ml-3 float-right"><button class="btn btn-danger"><i class="fas fa-trash "></i></button></span></h5>
                                     <p class="card-text">{{$vulnerablity->note}}</p>
                                     
-                                    <p class="blockquote-footer">
-                                                                                            
+                                    <p class="blockquote-footer">    
                                     @can('Person & Household Admin')
                                     Updated by {{$vulnerablity->user->name}} on {{$vulnerablity->updated_at}}
                                     @endcan

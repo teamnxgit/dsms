@@ -3,8 +3,12 @@
 @section('content')
 
 @include('navbar.person')
+
+
     <div class="col-lg-12 p-3">
+    
         <div class="row">
+        @can('Person & Household')
             <div class="col-4">
                 <div class="h3">Persons</div>
             </div>
@@ -27,10 +31,12 @@
                     <thead class="thead-dark">
                         <tr>
                             <th class="text-center">ID</th>
+                            <th class="text-center">NIC</th>
+                            <th class="text-center">Full Name</th>
                             <th class="text-center">GN Division</th>
                             <th class="text-center">Town / Village</th>
-                            <th class="text-center">Full Name</th>
-                            <th class="text-center">NIC</th>
+                            
+                           
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -38,11 +44,10 @@
                         @foreach($people as $person)
                             <tr>
                                 <td class="text-center">{{$person->id}}</td>
+                                <td class="text-center">{{$person->nic}}</td>
+                                <td class="">{{$person->full_name}}</td>
                                 <td class="text-center">{{$person->gndivision->name}}</td>
                                 <td class="text-center">{{$person->town->name}}</td>
-                                <td class="">{{$person->full_name}}</td>
-                                <td class="text-center">{{$person->nic}}</td>
-
                                 <td class="text-center">
                                     {!! Form::open(['url' => '/person/delete/']) !!}
                                         <a class="btn ml-lg-2 px-2 text-primary" href="/person/view/{{$person->id}}">
@@ -55,6 +60,9 @@
                     </tbody>
                 </table>
            </div>
+           @endcan
         </div>
     </div>
 @endsection
+
+
