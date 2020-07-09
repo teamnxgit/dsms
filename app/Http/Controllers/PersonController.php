@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\GnDivision;
 use App\Person;
+use App\Town;
 use App\PersonDetail;
+use App\Household;
 use Redirect;
 use Session;
 
@@ -13,7 +15,7 @@ class PersonController extends Controller
 {
     // 
     public function index(){
-        $data['people'] = Person::all();
+        $data['people'] = Person::where('status','Alive')->orderBy('created_at','desc')->paginate(20);
         return view('cms.person.persons')->with($data);
     }
 
@@ -22,11 +24,18 @@ class PersonController extends Controller
         return view('cms.person.new_person')->with($data);
     }
 
+    public function person($id){
+        $person = Person::findOrFail($id);
+        $data['towns'] = Town::where('gn_division_id',$person->gn_division_id)->get();
+        $data['households'] = Household::where('gn_division_id',$person->gn_division_id)->get();
+        $data['person']=$person;
+        return view('cms.person.person')->with($data);
+    }
+
     public function add(Request $request){
         $request->validate([
             'gn_division_id'=>'required',
             'town_id'=>'required',
-            'household_id'=>'required',
             'fullname'=>'required',
             'gender'=>'required',
         ]);
@@ -60,4 +69,38 @@ class PersonController extends Controller
 
         return Redirect('/person');
     }
+
+    public function attachPersonToHousehold(Request $request){
+        
+        $request->validate([
+            'household_id'=>'required',
+            'person_id'=>'required'
+        ]);
+        
+        $person = Person::findOrFail($request->input('person_id'));
+        $household = Household::findOrFail($request->input('household_id'));
+
+        $person->household_id = $household->id;
+        $person->save();
+
+        Session::flash('success', $person->nic. 'added to '.$household->house_no);
+        return Redirect::back();
+    }
+
+    public function deAttachPersonFromHousehold(Request $request){
+        
+        $request->validate([
+            'person_id'=>'required'
+        ]);
+        
+        $person = Person::findOrFail($request->input('person_id'));
+
+        $person->household_id = null;
+        $person->save();
+
+        Session::flash('success', $person->nic. ' removed from household');
+        return Redirect::back();
+    }
+
+    
 }

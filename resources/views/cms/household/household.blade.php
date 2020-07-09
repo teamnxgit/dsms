@@ -75,7 +75,9 @@
                 </div>
 
                 <div class="input-group mb-3">
+                    @can('Person & Household Operator')
                     {{Form::submit('Update',['class'=>'btn btn-success ml-2 '])}}
+                    @endcan
                     {!! Form::close() !!}
 
                     @can('Person & Household Admin')
@@ -113,12 +115,19 @@
                                         <td>{{$person->nic}}</td>
                                         <td>{{$person->full_name}}</td>
                                         <td>{{$person->age}}</td>
-                                        <td></td>
+                                        <td>
+                                            @can('Person & Household Admin')
+                                            {!! Form::open(['url' => '/household/person/rem']) !!}
+                                                <input type="hidden" name="person_id" value="{{$person->id}}">
+                                                <button type="submit" class="btn btn-danger"> <i class="fas fa-trash"></i></button>
+                                            {!! Form::close() !!}
+                                            @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                             </table>
                         </div>
-                        <button class="btn btn-outline-success mt-3" data-toggle="modal" data-target="#Field-vulnerability-Modal">+ Add Member</button>
+                        <button class="btn btn-outline-success mt-3" data-toggle="modal" data-target="#Household-Person-Modal">+ Add Member</button>
                     </div>
                 </div>
             </div>
@@ -359,8 +368,8 @@
             </div>
         </div>
 
-    <!-- Modal Vulnerability-->
-    <div class="modal fade" id="Household-Vulnerability-Modal" tabindex="-1" role="dialog" aria-labelledby="Household-Vulnerability-Modal" aria-hidden="true">
+        <!-- Modal Vulnerability-->
+        <div class="modal fade" id="Household-Vulnerability-Modal" tabindex="-1" role="dialog" aria-labelledby="Household-Vulnerability-Modal" aria-hidden="true">
             <div class="modal-dialog" role="document">
             {!! Form::open(['url' => '/household/vulnerability/add']) !!}
                 <div class="modal-content">
@@ -395,6 +404,54 @@
                             </div>
                             <textarea name="note" class="form-control" aria-label="With textarea" autocomplete="off" placeholder="Details about vulnerability"></textarea>
                         </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Add">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Person-->
+        <div class="modal fade" id="Household-Person-Modal" tabindex="-1" role="dialog" aria-labelledby="Household-Person-Modal"l" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            {!! Form::open(['url' => '/household/person/add']) !!}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Person to Household</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Household ID</span>
+                            </div>
+                            <input type="text" class="form-control" readonly name="household_id" value="{{$household->id}}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Household Number</span>
+                            </div>
+                            <input type="text" class="form-control" readonly name="household_number" value="{{$household->house_no}}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Person</span>
+                            </div>
+                            <select name="person_id" class="form-control">
+                                @foreach($people as $person)
+                                    <option value="{{$person->id}}">{{$person->nic}} - {{$person->full_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                     </div>
 
                     <div class="modal-footer">

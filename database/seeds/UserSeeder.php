@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        /*
         Role::create(['id'=>1,'name' => 'DS']);
         Role::create(['id'=>2,'name' => 'ADS']);
         Role::create(['id'=>3,'name' => 'ADP']);
@@ -32,7 +33,9 @@ class UserSeeder extends Seeder
 
         Permission::create(['id'=>20,'name' => 'Person & Household Admin']);
         Permission::create(['id'=>21,'name' => 'Person & Household']);
-        
+        */
+        Permission::create(['id'=>22,'name' => 'Person & Household Operator']);
+        /*
         Permission::create(['id'=>30,'name' => 'Attendance Admin']);
         Permission::create(['id'=>31,'name' => 'Attendance']);
 
@@ -48,7 +51,7 @@ class UserSeeder extends Seeder
 
         $user->assignRole(['ICTA']);
         $user->givePermissionTo('Super Admin');
-
+            */
 
     }
 }

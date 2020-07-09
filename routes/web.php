@@ -24,9 +24,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function(){
 
 Route::get('/person', 'PersonController@index')->name('Person');
-Route::get('/person/search', 'PersonController@index')->name('Person');
-Route::get('/person/search/{id}', 'PersonController@search')->name('person');
-Route::get('/person/details/{id}', 'PersonController@person')->name('Person');
+Route::post('/person/search', 'PersonController@search')->name('Person');
+Route::get('/person/view/{id}', 'PersonController@person')->name('Person');
 Route::get('/person/new', 'PersonController@new')->name('New Person');
 /* Functions */
 Route::post('/person/new/add', 'PersonController@add');
@@ -35,7 +34,7 @@ Route::post('/person/new/add', 'PersonController@add');
 // Household
 /* Views */
 Route::get('/households', 'HouseholdController@index');
-Route::get('/households/search/{id}', 'HouseholdController@search');
+Route::post('/households/search/', 'HouseholdController@search');
 Route::get('/household/view/{id}', 'HouseholdController@household')->name('Household');
 Route::get('/household/new', 'HouseholdController@new')->name('New Household');
 /* Functions */
@@ -47,6 +46,8 @@ Route::post('/household/facility/rem', 'HouseholdController@remFacility');
 Route::post('/household/fieldnote/add', 'HouseholdController@addFieldNote');
 Route::post('/household/vulnerability/rem', 'HouseholdController@remVulnerability');
 Route::post('/household/vulnerability/add', 'HouseholdController@addVulnerability');
+Route::post('/household/person/rem', 'PersonController@deAttachPersonFromHousehold');
+Route::post('/household/person/add', 'PersonController@attachPersonToHousehold');
 
 // User
 Route::get('/users', 'UserController@index');

@@ -10,6 +10,7 @@ use App\Street;
 use App\FacilityType;
 use App\Facility;
 use App\VulnerabilityType;
+use App\Person;
 use Redirect;
 use Session;
 use Auth;
@@ -17,7 +18,7 @@ use Auth;
 class HouseholdController extends Controller
 {
     public function index(){
-        $data['households'] = Household::all();
+        $data['households'] = Household::orderBy('created_at','desc')->paginate(20);
         return view('cms.household.households')->with($data);
     }
 
@@ -31,6 +32,7 @@ class HouseholdController extends Controller
         $household = Household::findOrFail($id);
         $household->fieldnotes = $household->fieldnotes()->orderBy('created_at', 'desc')->paginate(10);
         $data['household'] = $household;
+        $data['people'] = Person::where('household_id',NULL)->where('status','Alive')->get();
         $data['division_streets']=Street::where('gn_division_id',$household->gn_division_id)->get();
         $data['division_towns']=Town::where('gn_division_id',$household->gn_division_id)->get();
         $data['facility_types'] = FacilityType::all();
