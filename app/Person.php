@@ -34,4 +34,8 @@ class Person extends Model
     public function vulnerable(){
         return $this->morphMany(Vulnerability::class,'vulnerable');
     }
+
+    public function persondetail(){
+        return $this->hasOne(PersonDetail::class);
+    }
 }

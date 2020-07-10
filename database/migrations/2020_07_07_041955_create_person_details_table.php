@@ -27,7 +27,6 @@ class CreatePersonDetailsTable extends Migration
             $table->string('religion')->nullable();
 
             $table->string('education_level')->nullable();
-            $table->string('current_education')->nullable();
             $table->string('computer_literacy')->nullable();
 
             $table->string('mobile_no',10)->nullable();
