@@ -3,6 +3,11 @@
 @section('content')
 
 @include('navbar.person')
+<style>
+.hiddenRow {
+    padding: 0 !important;
+}
+</style>
 
 @can('Person & Household')
     <div class="col-lg-12 p-3">
@@ -38,7 +43,7 @@
                     </thead>
                     <tbody>
                         @foreach($households as $household)
-                            <tr>
+                            <tr data-toggle="collapse" data-target="#household-{{$household->id}}" class="accordion-toggle">
                                 <td class="text-center text-primary">{{$household->people->count()}}</td>
                                 <td class="text-center">{{$household->house_no}}</td>
                                 <td>{{$household->gndivision->number.' '.$household->gndivision->name}}</td>
@@ -56,6 +61,31 @@
                                         </a>
                                         
                                     {!! Form::close() !!}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="6" class="hiddenRow">
+                                    <div class="accordian-body collapse table-responsive" id="household-{{$household->id}}">
+                                        <table class="table">
+                                            <thead class="bg-warning">
+                                                <tr>
+                                                    <th>NIC</th>
+                                                    <th>Full Name</th>
+                                                    <th>Age</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($household->people as $person)
+                                                <tr class="alert-warning">
+                                                    <td >{{$person->nic}}</td>
+                                                    <td>{{$person->full_name}}</td>
+                                                    <td>{{$person->age}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
