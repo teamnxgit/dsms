@@ -268,8 +268,6 @@
         </div>
     </div>
 
-    @can('Consumable Admin')
-
     
     <!-- Consumable Received-->
     <div class="modal fade" id="Receive-Consumable-Modal" tabindex="-1" role="dialog" aria-labelledby="New-Consumable-Modal" aria-hidden="true">
@@ -404,6 +402,7 @@
         </div>
     </div>
 
+    @can('Consumable Admin')
     @foreach($consumables as $consumable)
     <!-- Consumable Stock Modal {{$consumable->id}}-->
     <div class="modal fade" id="Consumable-Stock-Modal-{{$consumable->id}}" tabindex="-1" role="dialog" aria-labelledby="Consumable-Stock-Modal" aria-hidden="true">
