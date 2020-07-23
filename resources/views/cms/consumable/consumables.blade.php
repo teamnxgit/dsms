@@ -16,106 +16,130 @@
         </div>
         <hr>
 
-        @if($low_consumables_count>0)
-        <div class="p-3 alert-danger border rounded row m-1 mt-3">
-            <h3 class="text-danger">Consumables - Below Low Level</h3>
-           <div class="table-responsive">
-                <table class="table" id="household">
-                    <thead class="bg-danger text-light">
-                        <tr>
-                            <th class="text-center"><i class="fas fa-icons"></i></th>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">Name & Description</th>
-                            <th class="text-center">Page No</th>
-                            <th class="text-center">Balance</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        @foreach($low_consumables as $consumable)
-                            <tr data-toggle="collapse" data-target="" class="accordion-toggle">
-                                <td class="text-center"><i class="fas {{$consumable->icon}}"></i></td>
-                                <td class="text-center">{{$consumable->id}}</td>
-                                <td>{{$consumable->name}} : {{$consumable->description}}</td>
-                                <td>{{$consumable->inventory->page_no}}</td>
-                                <td class="text-center">{{$consumable->inventory->balance}}</td>
-                                <td class="text-center">
-                                    {!! Form::open(['url' => '/consumable/rem/']) !!}
-                                    @can('Consumable Admin')
-                                    <a class="btn btn-warning" data-toggle="modal" data-target="#Consumable-Stock-Modal-{{$consumable->id}}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    @endcan
-                                    <input type="hidden" name="id" value="{{$consumable->id}}">
-                                    <button type="submit" class="btn ml-lg-2 px-2 btn-danger" >
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    {!! Form::close() !!}
+        @if($low_count>0)
+            <div class="p-3 alert-danger border rounded row m-1 mt-3">
+                <h3>Consumables Below Low Level</h3>
+            <div class="table-responsive">
+                    <table class="table" id="household">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Name & Description</th>
+                                <th class="text-center">Page No</th>
+                                <th class="text-center">Balance</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($consumables as $consumable)
+                                @if($consumable->balance <= $consumable->minimum_level)
+                                <tr data-toggle="collapse" data-target="" class="accordion-toggle">
+                                    <td class="text-center">{{$consumable->id}}</td>
+                                    <td>
+                                        <a href="/consumable/item/{{$consumable->id}}">{{$consumable->name}} : {{$consumable->description}}</a>
+                                    </td>
+                                    <td class="text-center">{{$consumable->page_no}}</td>
+                                    <td class="text-center">{{$consumable->balance}}</td>
+                                    <td class="text-center">
+                                        {!! Form::open(['url' => '/consumable/rem/']) !!}
+                                        @can('Consumable Admin')
+                                        <a class="btn btn-warning" data-toggle="modal" data-target="#Consumable-Stock-Modal-{{$consumable->id}}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        
+                                        <input type="hidden" name="id" value="{{$consumable->id}}">
+                                        <button type="submit" class="btn ml-lg-2 btn-danger" >
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        @endcan
+                                        
+                                        <a class="btn btn-success ml-lg-2 text-light" id="receive-consumable" data-toggle="modal" data-target="#Receive-Consumable-Modal" onclick="set_receive_modal('{{$consumable->id}}','{{$consumable->name}}')">
+                                            <i class="fa fa-inbox-in"></i>
+                                        </a>
+
+                                        <a class="btn btn-primary ml-lg-2 text-light" id="issue-consumable" data-toggle="modal" data-target="#Issue-Consumable-Modal" onclick="set_issue_modal('{{$consumable->id}}','{{$consumable->name}}')">
+                                            <i class="fa fa-inbox-out"></i>
+                                        </a>
+                                        {!! Form::close() !!}
+                                    </td>
+                                </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6">
                                 </td>
                             </tr>
-                        @endforeach
-                        <tfoot>
-                        <tr>
-                            <td colspan="6">
-                            </td>
-                        </tr>
-                    </tfoot>
-                    </tbody>
-                </table>
-           </div>
-        </div>
+                        </tfoot>
+                        
+                    </table>
+                </div>
+            </div>
         @endif
 
-        @if($reorder_consumables>0)
-        <div class="p-3 alert-warning border rounded row m-1 mt-3">
-            <h3 class="text-dark">Consumables - Reorder Level</h3>
-           <div class="table-responsive">
-                <table class="table" id="household">
-                    <thead class="bg-warning">
-                        <tr>
-                            <th class="text-center"><i class="fas fa-icons"></i></th>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">Name & Description</th>
-                            <th class="text-center">Page No</th>
-                            <th class="text-center">Balance</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        @foreach($low_consumables as $consumable)
-                            <tr data-toggle="collapse" data-target="" class="accordion-toggle">
-                                <td class="text-center"><i class="fas {{$consumable->icon}}"></i></td>
-                                <td class="text-center">{{$consumable->id}}</td>
-                                <td>{{$consumable->name}} : {{$consumable->description}}</td>
-                                <td>{{$consumable->page_no}}</td>
-                                <td class="text-center">{{$consumable->balance}}</td>
-                                <td class="text-center">
-                                    {!! Form::open(['url' => '/consumable/rem/']) !!}
-                                    @can('Consumable Admin')
-                                    <a class="btn btn-warning" data-toggle="modal" data-target="#Consumable-Stock-Modal-{{$consumable->id}}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    @endcan
-                                    <input type="hidden" name="id" value="{{$consumable->id}}">
-                                    <button type="submit" class="btn ml-lg-2 px-2 btn-danger" >
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    {!! Form::close() !!}
+        @if($reorder_count > 0)
+            <div class="p-3 alert-warning border rounded row m-1 mt-3">
+                <h3>Consumables Below Reorder Level</h3>
+            <div class="table-responsive">
+                    <table class="table" id="household">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Name & Description</th>
+                                <th class="text-center">Page No</th>
+                                <th class="text-center">Balance</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($consumables as $consumable)
+                                @if($consumable->balance > $consumable->minimum_level)
+                                @if($consumable->balance <= $consumable->reorder_level)
+                                <tr data-toggle="collapse" data-target="" class="accordion-toggle">
+                                    <td class="text-center">{{$consumable->id}}</td>
+                                    <td>
+                                        <a href="/consumable/item/{{$consumable->id}}">{{$consumable->name}} : {{$consumable->description}}</a>
+                                    </td>
+                                    <td class="text-center">{{$consumable->page_no}}</td>
+                                    <td class="text-center">{{$consumable->balance}}</td>
+                                    <td class="text-center">
+                                        {!! Form::open(['url' => '/consumable/rem/']) !!}
+                                        @can('Consumable Admin')
+                                        <a class="btn btn-warning" data-toggle="modal" data-target="#Consumable-Stock-Modal-{{$consumable->id}}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        
+                                        <input type="hidden" name="id" value="{{$consumable->id}}">
+                                        <button type="submit" class="btn ml-lg-2 btn-danger" >
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        @endcan
+                                        
+                                        <a class="btn btn-success ml-lg-2 text-light" id="receive-consumable" data-toggle="modal" data-target="#Receive-Consumable-Modal" onclick="set_receive_modal('{{$consumable->id}}','{{$consumable->name}}')">
+                                            <i class="fa fa-inbox-in"></i>
+                                        </a>
+
+                                        <a class="btn btn-primary ml-lg-2 text-light" id="issue-consumable" data-toggle="modal" data-target="#Issue-Consumable-Modal" onclick="set_issue_modal('{{$consumable->id}}','{{$consumable->name}}')">
+                                            <i class="fa fa-inbox-out"></i>
+                                        </a>
+                                        {!! Form::close() !!}
+                                    </td>
+                                </tr>
+                                @endif
+                                @endif
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6">
                                 </td>
                             </tr>
-                        @endforeach
-                        <tfoot>
-                        <tr>
-                            <td colspan="6">
-                            </td>
-                        </tr>
-                    </tfoot>
-                    </tbody>
-                </table>
-           </div>
-        </div>
+                        </tfoot>
+                        
+                    </table>
+                </div>
+            </div>
         @endif
 
         <div class="p-3 bg-light border rounded row m-1 mt-3">
@@ -124,7 +148,6 @@
                 <table class="table" id="household">
                     <thead class="thead-dark">
                         <tr>
-                            <th class="text-center"><i class="fas fa-icons"></i></th>
                             <th class="text-center">ID</th>
                             <th class="text-center">Name & Description</th>
                             <th class="text-center">Page No</th>
@@ -135,12 +158,11 @@
                     <tbody>
                         @foreach($consumables as $consumable)
                             <tr data-toggle="collapse" data-target="" class="accordion-toggle">
-                                <td class="text-center"><i class="fas {{$consumable->icon}}"></i></td>
                                 <td class="text-center">{{$consumable->id}}</td>
                                 <td>
                                     <a href="/consumable/item/{{$consumable->id}}">{{$consumable->name}} : {{$consumable->description}}</a>
                                 </td>
-                                <td>{{$consumable->page_no}}</td>
+                                <td class="text-center">{{$consumable->page_no}}</td>
                                 <td class="text-center">{{$consumable->balance}}</td>
                                 <td class="text-center">
                                     {!! Form::open(['url' => '/consumable/rem/']) !!}
@@ -209,9 +231,9 @@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Icon</span>
+                            <span class="input-group-text" id="basic-addon1">Page No</span>
                         </div>
-                        <input type="text" class="form-control" name="icon" placeholder="Font Awesome Icon">
+                        <input type="text" class="form-control" name="page_no" placeholder="Page No in Consumable Register">
                     </div>
 
                     <div class="input-group mb-3">
@@ -354,12 +376,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Issue To</span>
                         </div>
-                        <select name="to" id="to" class="form-control">
-                                <option value="">Select To</option>
-                            @foreach($branches as $branch)
-                                <option value="{{$branch->id}}">{{$branch->name}}</option>
-                            @endforeach
-                        </select>
+                        <input name="to" id="to" class="form-control" placeholder="Receiver's Name">
                     </div>
 
                     <div class="input-group mb-3">
@@ -422,6 +439,24 @@
                         <input type="text" class="form-control" value="{{$consumable->page_no}}" name="page_no">
                     </div>
 
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1" >Minimum Level</span>
+                        </div>
+                        <input type="number" class="form-control" style="background-color:rgba(200,0,0,0.2)" value="{{$consumable->minimum_level}}" name="minimum_level" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Reorder Level</span>
+                        </div>
+                        <input type="number" class="form-control" style="background-color:rgba(200,200,0,0.2)" value="{{$consumable->reorder_level}}" name="reorder_level" >
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Maximum Level</span>
+                        </div>
+                        <input type="number" class="form-control " style="background-color:rgba(0,200,50,0.2)" value="{{$consumable->maximum_level}}" name="maximum_level" >
+                    </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Balance</span>

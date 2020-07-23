@@ -99,6 +99,8 @@ Route::Post('/consumable/editstock', 'ConsumableController@editstock');
 Route::Post('/consumable/rem', 'ConsumableController@rem');
 Route::Post('/consumable/receive', 'ConsumableController@receive');
 Route::Post('/consumable/issue', 'ConsumableController@issue');
+Route::Post('/consumable/transaction/rem', 'ConsumableController@remTransaction');
 Route::get('/consumable/item/{id}', 'ConsumableController@item');
+
 
 });

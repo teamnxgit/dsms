@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConsumableIssuesTable extends Migration
+class CreateConsumableTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,21 @@ class CreateConsumableIssuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('consumable_issues', function (Blueprint $table) {
+        Schema::create('consumable_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('consumable_id');
+            $table->string('type');
             $table->date('date');
-            $table->unsignedBigInteger('to');
-            $table->string('req_no');
-            $table->integer('qty_issued');
+            $table->string('from_or_to');
+            $table->string('ref_no');
+            $table->integer('qty');
             $table->integer('balance');
             $table->timestamps();
         });
 
-        Schema::table('consumable_issues', function (Blueprint $table) {
+        Schema::table('consumable_transactions', function (Blueprint $table) {
             $table->foreign('consumable_id')->references('id')->on('consumables');
-            $table->foreign('to')->references('id')->on('branches');
-        });
+        });        
     }
 
     /**
@@ -35,8 +35,7 @@ class CreateConsumableIssuesTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('consumable_issues');
+    public function down(){
+        Schema::dropIfExists('consumable_receives');
     }
 }

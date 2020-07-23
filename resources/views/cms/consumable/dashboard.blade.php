@@ -5,7 +5,7 @@
 @include('navbar.consumable')
 
 @can('Consumable')
-<!--
+
 <div class="col-lg-12 p-3 row">
         <div class="row col-lg-12">
             <div class="col-12">
@@ -17,35 +17,36 @@
         <div class="col-lg-3 rounded">
             <div class="card-counter danger">
               <i class="fas fa-tachometer-alt-slowest"></i>
-              <span class="count-numbers">8</span>
-              <a class="count-name" href="/system/household/">Below Low Level</a>
+              <span class="count-numbers">{{$low_count}}</span>
+              <a class="count-name" href="/consumable/consumables/">Below Low Level</a>
             </div>
         </div>
 
         <div class="col-lg-3 rounded">
             <div class="card-counter warning">
               <i class="fas fa-tachometer-alt-slow"></i>
-              <span class="count-numbers">2</span>
-              <a class="count-name text-dark" href="/system/person/">Reorder Level</a>
+              <span class="count-numbers">{{$reorder_count}}</span>
+              <a class="count-name text-dark" href="/consumable/consumables/">Reorder Level</a>
             </div>
         </div>
 
         <div class="col-lg-3 rounded">
             <div class="card-counter success">
               <i class="fas fa-tachometer-alt-average"></i>
-              <span class="count-numbers">2</span>
-              <a class="count-name text-dark" href="/system/person/">Sufficient Level</a>
+              <span class="count-numbers">{{$sufficient_count}}</span>
+              <a class="count-name text-dark" href="/consumable/consumables/">Sufficient Level</a>
             </div>
         </div>
 
         <div class="col-lg-3 rounded">
             <div class="card-counter primary">
               <i class="fas fa-tachometer-alt-fastest"></i>
-              <span class="count-numbers">2</span>
+              <span class="count-numbers">{{$excessive_count}}</span>
               <a class="count-name" href="/system/person/">Excessive Level</a>
             </div>
         </div>
 
+        <!--
         <div class="row col-lg-12 pt-3">
             <div class="col-12">
                 <div class="h3">Branch Requests</div>
@@ -76,12 +77,8 @@
               <a class="count-name text-dark" href="/system/person/">Completed</a>
             </div>
         </div>
-
-
-        
-
+        -->
     </div>
-    -->
 @endcan
 
 <style>

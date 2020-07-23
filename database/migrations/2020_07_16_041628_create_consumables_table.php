@@ -17,7 +17,6 @@ class CreateConsumablesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('description');
-            $table->string('icon');
             $table->integer('maximum_level');
             $table->integer('reorder_level');
             $table->integer('minimum_level');

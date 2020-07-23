@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Consumable;
-use App\ConsumableReceive;
-use App\ConsumableIssue;
+use App\ConsumableTransaction;
 use App\Branch;
 use Session;
 use Redirect;
@@ -13,14 +12,55 @@ use Redirect;
 class ConsumableController extends Controller
 {
     public function index(){
-        return view('cms.consumable.dashboard');
+        $consumables = Consumable::all();
+
+        $low_count=0;
+        $reorder_count=0;
+        $sufficient_count=0;
+        $excessive_count=0;
+
+        foreach ($consumables as $consumable) {
+            if ($consumable->balance <= $consumable->minimum_level) {
+                $low_count++;
+            }
+            elseif ($consumable->balance <= $consumable->reorder_level) {
+                $reorder_count++;
+            }
+            elseif ($consumable->balance <= $consumable->maximum_level) {
+                $sufficient_count++;
+            }
+            else {
+                $excessive_count++;
+            }
+        }
+
+        $data['low_count']=$low_count;
+        $data['reorder_count']=$reorder_count;
+        $data['sufficient_count'] = $sufficient_count;
+        $data['excessive_count'] = $excessive_count;
+        return view('cms.consumable.dashboard')->with($data);
     }
 
     public function consumables(){
-        $data['consumables'] = Consumable::all();
-        $data['low_consumables_count']=0;
-        $data['reorder_consumables']=0;
-        $data['branches']=Branch::all();
+
+        $consumables = Consumable::all();
+
+        $low_count=0;
+        $reorder_count=0;
+
+        foreach ($consumables as $consumable) {
+            if ($consumable->balance <= $consumable->minimum_level) {
+                $low_count++;
+            }
+            elseif ($consumable->balance <= $consumable->reorder_level) {
+                $reorder_count++;
+            }
+        }
+
+        $data['low_count']=$low_count;
+        $data['reorder_count']=$reorder_count;
+        $data['consumables'] = $consumables;
+
         return view('cms.consumable.consumables')->with($data);
     }
 
@@ -35,7 +75,7 @@ class ConsumableController extends Controller
         $consumable = New Consumable;
         $consumable->name = $request->input('name');
         $consumable->description= $request->input('description');
-        $consumable->icon = $request->input('icon');
+        $consumable->page_no= $request->input('page_no');
         $consumable->maximum_level = $request->input('maximum_level');
         $consumable->reorder_level = $request->input('reorder_level');
         $consumable->minimum_level = $request->input('minimum_level');
@@ -51,6 +91,10 @@ class ConsumableController extends Controller
     public function editstock(Request $request){
         $request->validate([
             'id'=>'required',
+            'page_no'=>'required',
+            'maximum_level'=>'required',
+            'reorder_level'=>'required',
+            'minimum_level'=>'required',
             'balance'=>'required',
         ]);
 
@@ -88,12 +132,13 @@ class ConsumableController extends Controller
 
         $consumable = Consumable::findOrFail($request->input('consumable_id'));
         $balance = $consumable->balance + $request->input('qty');
-        $consumable->receives()->create([
+        $consumable->transactions()->create([
             'consumable_id'=>$request->input('consumable_id'),
+            'type'=>'receive',
             'date'=>$request->input('date'),
-            'from'=>$request->input('from'),
-            'bill_no'=>$request->input('bill_no'),
-            'qty_received'=>$request->input('qty'),
+            'from_or_to'=>$request->input('from'),
+            'ref_no'=>$request->input('bill_no'),
+            'qty'=>$request->input('qty'),
             'balance'=> $balance
         ]);
         $consumable->balance = $balance;
@@ -114,12 +159,13 @@ class ConsumableController extends Controller
 
         $consumable = Consumable::findOrFail($request->input('consumable_id'));
         $balance = $consumable->balance - $request->input('qty');
-        $consumable->issues()->create([
+        $consumable->transactions()->create([
             'consumable_id'=>$request->input('consumable_id'),
+            'type'=>'issue',
             'date'=>$request->input('date'),
-            'to'=>$request->input('to'),
-            'req_no'=>$request->input('req_no'),
-            'qty_issued'=>$request->input('qty'),
+            'from_or_to'=>$request->input('to'),
+            'ref_no'=>$request->input('req_no'),
+            'qty'=>$request->input('qty'),
             'balance'=>$balance
         ]);
         $consumable->balance = $balance;
@@ -131,24 +177,19 @@ class ConsumableController extends Controller
     public function item($id){
         $consumable = Consumable::findOrFail($id);
         $data['consumable'] = $consumable;
-
-        $consumable_receives = $consumable->receives()->orderBy('date')->orderBy('created_at')->get();
-        $consumable_issues = $consumable->issues()->orderBy('date')->orderBy('created_at')->get();
-
-        $transactions=[];
-
-        foreach ($consumable_receives as $receives) {
-            array_push($transactions,$receives);
-        }
-
-        foreach($consumable_issues as $issues) {
-            array_push($transactions,$issues);
-        }
-
-        ksort($transactions);
-
+        $transactions=$consumable->transactions()->orderBy('date')->orderBy('created_at')->get();
         $data['transactions']=$transactions;
-
         return view('cms.consumable.consumable')->with($data);
+    }
+
+    public function remTransaction(Request $request){
+        $request->validate([
+            'id'=>'required'
+        ]);
+        $transactions = ConsumableTransaction::findOrFail($request->input('id'));
+        $transactions->delete();
+
+        Session::flash('success','Transaction removed');
+        return Redirect::back();
     }
 }
