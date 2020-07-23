@@ -33,8 +33,10 @@ class UserSeeder extends Seeder
 
         Permission::create(['id'=>20,'name' => 'Person & Household Admin']);
         Permission::create(['id'=>21,'name' => 'Person & Household']);
-        */
         Permission::create(['id'=>22,'name' => 'Person & Household Operator']);
+        */
+        Permission::create(['id'=>50,'name' => 'Consumable Admin']);
+        Permission::create(['id'=>51,'name' => 'Consumable']);
         /*
         Permission::create(['id'=>30,'name' => 'Attendance Admin']);
         Permission::create(['id'=>31,'name' => 'Attendance']);

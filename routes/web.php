@@ -91,5 +91,14 @@ Route::post('/system/household/vulnerability/rem','SystemController@remHousehold
 // Household
 Route::post('/system/households/list','HouseholdController@listHousehold');
 
+// Stationary
+Route::get('/consumable', 'ConsumableController@index');
+Route::get('/consumable/consumables', 'ConsumableController@consumables');
+Route::Post('/consumable/add', 'ConsumableController@add');
+Route::Post('/consumable/editstock', 'ConsumableController@editstock');
+Route::Post('/consumable/rem', 'ConsumableController@rem');
+Route::Post('/consumable/receive', 'ConsumableController@receive');
+Route::Post('/consumable/issue', 'ConsumableController@issue');
+Route::get('/consumable/item/{id}', 'ConsumableController@item');
 
 });

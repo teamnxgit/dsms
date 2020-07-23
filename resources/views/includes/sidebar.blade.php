@@ -42,6 +42,10 @@ if (Auth::check()) {
         <a href="/socialsecurity" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fas fa-hands-helping mr-3" aria-hidden="true"></i>Samurdhi</a>
         @endcan
 
+        @can('Consumable')
+        <a href="/consumable" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fas fa-inventory mr-3" aria-hidden="true"></i>Consumable</a>
+        @endcan
+
         @can('Super Admin')
         <a href="/users" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-user mr-3" aria-hidden="true"></i>User Accounts</a>
         @endcan

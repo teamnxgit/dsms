@@ -249,8 +249,6 @@
                     {{Form::text('email',$person->persondetail->email,['class'=>'form-control'])}}
                 </div>
 
-                
-
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Vote List Serial Number</span>
