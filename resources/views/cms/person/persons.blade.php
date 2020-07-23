@@ -49,7 +49,7 @@
                                 <td class="">{{$person->full_name}}</td>
                                 <td class="text-center">{{$person->gndivision->name}}</td>
                                 <td class="text-center">{{$person->town->name}}</td>
-                                <td class="text-center">{{$person->household_id}}</td>
+                                <td class="text-center">{{$person->household->house_no}}</td>
                                 <td class="text-center">
                                     {!! Form::open(['url' => '/person/delete/']) !!}
                                         <a class="btn ml-lg-2 px-2 text-primary" href="/person/view/{{$person->id}}">
