@@ -10,7 +10,7 @@
             </div>
         </div>
         <hr>
-        {!! Form::open(['url' => '/person/new/add']) !!}
+        {!! Form::open(['url' => '/person/add']) !!}
         <div class="p-3 bg-light border rounded row m-1">
         
             <div class="h5 col-12">Enter the details to add new person</div>

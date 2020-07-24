@@ -10,20 +10,23 @@
         <div class="row">
         @can('Person & Household')
             <div class="col-4">
-                <div class="h3">Persons</div>
+                <div class="h3">People</div>
             </div>
             <div class="col-8 text-right">
                 <a class="btn btn-primary text-light" href="/person/new/">+ Add New Person</a>
             </div>
         </div>
         <hr>
+
+        {!! Form::open(['url' => '/person/search/']) !!}
         <div class="p-3 bg-light border rounded row m-1">
-            <div class="h5 col-12">Search Persons</div>
-            {{Form::label('search',null,['class'=>'col-lg-1 pt-1'])}}
-            {{Form::text('search',null,['class'=>'form-control col-lg-9 mb-2','placeholder'=>'Search NIC | Name'])}}
-            
-            {{Form::submit('Search',['class'=>'btn btn-primary col-lg-1 ml-lg-2 mb-2'])}}
-        </div>
+            <div class="h5 col-12">Search People</div>
+                {{Form::label('search',null,['class'=>'col-lg-1 pt-1'])}}
+                {{Form::text('search',null,['class'=>'form-control col-lg-9 mb-2','placeholder'=>'Search NIC | Name'])}}
+                {{Form::submit('Search',['class'=>'btn btn-primary col-lg-1 ml-lg-2 mb-2'])}}
+            </div>
+        
+        {!! Form::close() !!}
 
         <div class="p-3 bg-light border rounded row m-1 mt-3">
            <div class="table-responsive">
@@ -36,8 +39,6 @@
                             <th class="text-center">GN Division</th>
                             <th class="text-center">Town / Village</th>
                             <th class="text-center">House No</th>
-                            
-                           
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>

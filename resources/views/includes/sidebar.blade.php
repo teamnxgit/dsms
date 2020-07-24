@@ -27,7 +27,7 @@ if (Auth::check()) {
     
         <a href="/dashbaord" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fas fa-tachometer-alt mr-3" aria-hidden="true"></i>Dashboard</a>
         @can('Person & Household')
-            <a href="/person" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-user mr-3" aria-hidden="true"></i>Person & Household</a>
+            <a href="/people" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-fw fa-user mr-3" aria-hidden="true"></i>Person & Household</a>
         @endcan
 
         @can('Attendance')

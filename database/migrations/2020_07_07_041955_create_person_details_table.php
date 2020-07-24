@@ -31,7 +31,7 @@ class CreatePersonDetailsTable extends Migration
 
             $table->string('mobile_no',10)->nullable();
             $table->string('land_phone_no',10)->nullable();
-            $table->string('email',10)->nullable();
+            $table->string('email')->nullable();
 
             $table->boolean('is_head_of_family')->nullable()->default(false);
             $table->integer('vote_list_serial')->nullable();

@@ -23,12 +23,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
 
-Route::get('/person', 'PersonController@index')->name('Person');
+Route::get('/people', 'PersonController@index')->name('Person');
 Route::post('/person/search', 'PersonController@search')->name('Person');
 Route::get('/person/view/{id}', 'PersonController@person')->name('Person');
 Route::get('/person/new', 'PersonController@new')->name('New Person');
 /* Functions */
-Route::post('/person/new/add', 'PersonController@add');
+Route::post('/person/add', 'PersonController@add');
+Route::post('/person/rem', 'PersonController@rem');
+Route::post('/person/update', 'PersonController@update');
+Route::post('/person/updatepersondetails', 'PersonController@updatePersonDetails');
 
 
 // Household

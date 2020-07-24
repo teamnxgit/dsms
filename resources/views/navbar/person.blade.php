@@ -7,7 +7,7 @@
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0 pl-2">
     <h6 class="navbar-brand" class="h-6">Person & Household</h6>
       <li class="nav-item">
-        <a class="nav-link" href="/person">Person</a>
+        <a class="nav-link" href="/people">People</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/households">Households</a>

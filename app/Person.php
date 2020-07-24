@@ -38,4 +38,8 @@ class Person extends Model
     public function persondetail(){
         return $this->hasOne(PersonDetail::class);
     }
+
+    public function benefits(){
+        return $this->belongsToMany(Benefit::class)->withPivot('note', 'date');
+    }
 }

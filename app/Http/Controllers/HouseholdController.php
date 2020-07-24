@@ -84,7 +84,7 @@ class HouseholdController extends Controller
         $household = Household::findOrFail($request->input('id'));
         $household->delete();
         session()->flash('success', 'Household deleted');
-        return redirect::back();
+        return redirect('/households');
     }
 
     public function update(Request $request){
