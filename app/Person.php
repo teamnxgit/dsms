@@ -23,8 +23,8 @@ class Person extends Model
         return $this->hasMany('App\Disability');
     }
 
-    public function occupations(){
-        return $this->belongsToMany('App\Job');
+    public function jobs(){
+        return $this->belongsToMany(Job::class,'job_people')->withPivot('income','note');
     }
 
     public function notes(){

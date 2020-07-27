@@ -100,12 +100,13 @@
                 <div class="input-group mb-3">
                     @can('Person & Household Operator')
                     {{Form::submit('Update',['class'=>'btn btn-success ml-2 '])}}
-                    @endcan
+                    
                     {!! Form::close() !!}
 
+                    <button type="button" class="btn btn-warning ml-2 text-dark" data-toggle="modal" data-target="#Household-Person-Modal">Change GN Division</button>
+                    @endcan
+
                     @can('Person & Household Admin')
-                     
-                    <button class="btn btn-warning ml-2 text-dark" data-toggle="modal" data-target="#Household-Person-Modal">GN Division Transfer</button>
                     {!! Form::open(['url' => '/person/rem']) !!}
                         <input type="hidden" name="person_id" value="{{$person->id}}">
                         {{Form::submit('Delete',['class'=>'btn btn-danger ml-2 '])}}
@@ -295,9 +296,58 @@
                 
         </div>
 
-        <div class="p-3 bg-light border rounded row m-1 mt-3">
-            <div class="h5 col-12">Person Job</div>
-
+        <div id="accordion-jobs">
+            <div class="card border rounded m-1 mt-3">
+                <div class="card-header" id="headingOne">
+                    <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-jobs" aria-expanded="true" aria-controls="collapseOne">
+                        Job Information
+                    </h5>
+                </div>
+                
+                <div id="collapse-jobs" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-jobs">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="text-center">Job</th>
+                                            <th class="text-center">Income</th>
+                                            <th class="text-center">Note</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($person->jobs as $job)
+                                            <tr>
+                                                <td class="text-center">{{$job->name}}</td>
+                                                <td class="text-center">{{$job->pivot->income}}</td>
+                                                <td class="text-center">{{$job->pivot->note}}</td>
+                                                <td class="text-center">
+                                                @can('Person & Household Operator')
+                                                    {!! Form::open(['url' => '/person/job/rem']) !!}
+                                                        <input type="hidden" name="job_id" value="{{$job->id}}">
+                                                        <input type="hidden" name="person_id" value="{{$person->id}}">
+                                                        <button class="btn btn-danger" type="submit">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    {!! Form::close() !!}
+                                                @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <td colspan="4">
+                                        <button type="button" class="btn btn-outline-success ml-2" data-toggle="modal" data-target="#Job-Person-Modal">Add Job</button>
+                                        </td>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="p-3 bg-light border rounded row m-1 mt-3">
@@ -318,6 +368,71 @@
         <div class="p-3 bg-light border rounded row m-1 mt-3">
             <div class="h5 col-12">Field Notes</div>
 
+        </div>
+
+        <!-- Modals --->
+
+        <!-- Modal Add Job-->
+        <div class="modal fade" id="Job-Person-Modal" tabindex="-1" role="dialog" aria-labelledby="Job-Person-Modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            {!! Form::open(['url' => '/person/addjob']) !!}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Job</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Person ID</span>
+                            </div>
+                            <input type="text" class="form-control" readonly name="person_id" value="{{$person->id}}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Full Name</span>
+                            </div>
+                            <input type="text" class="form-control" readonly name="household_number" value="{{$person->full_name}}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Job</span>
+                            </div>
+                            <select name="job_id" id="" class="form-control">
+                                @foreach($jobs as $job)
+                                    <option value="{{$job->id}}">{{$job->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Monthly Income</span>
+                            </div>
+                            <input type="text" class="form-control" name="income">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Note</span>
+                            </div>
+                            <textarea class="form-control" name="note"></textarea>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Add">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
         </div>
 @endcan
 

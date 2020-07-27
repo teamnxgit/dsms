@@ -8,6 +8,7 @@ use App\Person;
 use App\Town;
 use App\PersonDetail;
 use App\Household;
+use App\Job;
 use Redirect;
 use Session;
 
@@ -29,6 +30,7 @@ class PersonController extends Controller
         $data['towns'] = Town::where('gn_division_id',$person->gn_division_id)->get();
         $data['households'] = Household::where('gn_division_id',$person->gn_division_id)->get();
         $data['person']=$person;
+        $data['jobs']=Job::all();
         return view('cms.person.person')->with($data);
     }
 
@@ -175,6 +177,23 @@ class PersonController extends Controller
         return Redirect::back();
     }
 
+    public function addJob(Request $request){
+        $request->validate([
+            'person_id'=>'required',
+            'job_id'=>'required'
+        ]);
+
+        $person = Person::findOrFail($request->input('person_id'));
+        $job = Job::findOrFail($request->input('job_id'));
+
+        $person->jobs()->attach($job->id,[
+            'income'=>$request->input('income'),
+            'note'=>$request->input('note')
+        ]);
+
+        Session::flash('success', 'Person job updated');
+        return Redirect::back();
+    }
 
     
 }

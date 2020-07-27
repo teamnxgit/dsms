@@ -15,7 +15,7 @@
             <div class="card-counter danger">
               <i class="fas fa-briefcase"></i>
               <span class="count-numbers">0</span>
-              <a class="count-name" href="/system/jobs/">Jobs</a>
+              <a class="count-name" href="/system/job/">Jobs</a>
             </div>
         </div>
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBenefitPeopleTable extends Migration
+class CreateJobPeopleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateBenefitPeopleTable extends Migration
      */
     public function up()
     {
-        Schema::create('benefit_people', function (Blueprint $table) {
+        Schema::create('job_people', function (Blueprint $table) {
             $table->unsignedBigInteger('person_id');
-            $table->unsignedBigInteger('benefit_id');
-            $table->longText('note')->nullable();
-            $table->date('date')->nullable();
+            $table->unsignedBigInteger('job_id');
+            $table->decimal('income',10,2);
+            $table->string('note');
             $table->timestamps();
         });
 
-        Schema::table('benefit_people', function (Blueprint $table) {
-            $table->primary(['person_id','benefit_id']);
+        Schema::table('job_people', function (Blueprint $table) {
+            $table->primary(['person_id','job_id']);
             $table->foreign('person_id')->references('id')->on('people');
-            $table->foreign('benefit_id')->references('id')->on('benefits');
+            $table->foreign('job_id')->references('id')->on('jobs');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateBenefitPeopleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('benefit_people');
+        Schema::dropIfExists('job_people');
     }
 }

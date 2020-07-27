@@ -32,6 +32,7 @@ Route::post('/person/add', 'PersonController@add');
 Route::post('/person/rem', 'PersonController@rem');
 Route::post('/person/update', 'PersonController@update');
 Route::post('/person/updatepersondetails', 'PersonController@updatePersonDetails');
+Route::post('/person/addjob', 'PersonController@addJob');
 
 
 // Household
@@ -90,6 +91,10 @@ Route::post('/system/facility/rem','FacilityController@remFacility');
 Route::get('/system/household/vulnerability/','SystemController@HouseholdVulnerabilityTypes');
 Route::post('/system/household/vulnerability/add','SystemController@addHouseholdVulnerabilityTypes');
 Route::post('/system/household/vulnerability/rem','SystemController@remHouseholdVulnerabilityTypes');
+// Jobs
+Route::get('/system/job/','SystemController@job');
+Route::post('/system/job/add','SystemController@addJob');
+Route::post('/system/job/rem','SystemController@remJob');
 
 // Household
 Route::post('/system/households/list','HouseholdController@listHousehold');
