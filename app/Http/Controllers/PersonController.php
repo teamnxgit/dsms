@@ -151,6 +151,7 @@ class PersonController extends Controller
         $personDetail = PersonDetail::findOrFail($request->input('person_id'));
 
         $personDetail->name_with_initials = $request->input('name_with_initials');
+        $personDetail->full_name_t = $request->input('full_name_t');
         $personDetail->driving_license = $request->input('driving_license');
         $personDetail->passport = $request->input('passport');
         $personDetail->maritial_status = $request->input('maritial_status');

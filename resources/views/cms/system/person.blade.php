@@ -14,7 +14,7 @@
         <div class="col-lg-3 rounded">
             <div class="card-counter danger">
               <i class="fas fa-briefcase"></i>
-              <span class="count-numbers">0</span>
+              <span class="count-numbers">{{$jobs_count}}</span>
               <a class="count-name" href="/system/job/">Jobs</a>
             </div>
         </div>
@@ -23,7 +23,23 @@
             <div class="card-counter danger">
               <i class="fas fa-exclamation-triangle"></i>
               <span class="count-numbers">0</span>
-              <a class="count-name" href="/system/jobs/">Person Vulnerabilities</a>
+              <a class="count-name" href="/system/job/">Person Vulnerabilities</a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 rounded">
+            <div class="card-counter danger">
+              <i class="fas  fa-toolbox"></i>
+              <span class="count-numbers">{{$benefits_count}}</span>
+              <a class="count-name" href="/system/benefit/">Benefits</a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 rounded">
+            <div class="card-counter danger">
+              <i class="fas fa-hands-helping"></i>
+              <span class="count-numbers">0</span>
+              <a class="count-name" href="/system/assistance/">Assistance</a>
             </div>
         </div>
     </div>

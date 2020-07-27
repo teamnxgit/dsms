@@ -16,6 +16,8 @@ class CreatePersonDetailsTable extends Migration
         Schema::create('person_details', function (Blueprint $table) {
             $table->unsignedBigInteger('person_id');
 
+            $table->mediumText('full_name_t')->nullable();
+
             $table->string('driving_license',15)->unique()->nullable();
             $table->string('passport',15)->unique()->nullable();
 
@@ -36,6 +38,8 @@ class CreatePersonDetailsTable extends Migration
             $table->boolean('is_head_of_family')->nullable()->default(false);
             $table->integer('vote_list_serial')->nullable();
             $table->string('residence_status')->nullable();
+
+            $table->string('income_level')->nullable();
 
             $table->timestamps();
         });

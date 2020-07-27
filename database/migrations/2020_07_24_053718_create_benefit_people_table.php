@@ -18,6 +18,7 @@ class CreateBenefitPeopleTable extends Migration
             $table->unsignedBigInteger('benefit_id');
             $table->longText('note')->nullable();
             $table->date('date')->nullable();
+            $table->string('current_status')->nullable();
             $table->timestamps();
         });
 

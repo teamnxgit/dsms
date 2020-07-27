@@ -138,6 +138,13 @@
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">முழுப் பெயர்</span>
+                    </div>
+                    {{Form::text('full_name_t',$person->persondetail->full_name_t,['class'=>'form-control','placeholder'=>''])}}
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
                         <div class="input-group-text">
                             <input type="checkbox" name="is_head_of_family" aria-label="Checkbox for following text input" @if($person->persondetail->is_head_of_family==1)checked @endif>
                         </div>
@@ -351,17 +358,17 @@
         </div>
 
         <div class="p-3 bg-light border rounded row m-1 mt-3">
-            <div class="h5 col-12">Person Disabilities</div>
+            <div class="h5 col-12">Person with Disabilities</div>
 
         </div>
 
         <div class="p-3 bg-light border rounded row m-1 mt-3">
-            <div class="h5 col-12">Person Benefits</div>
+            <div class="h5 col-12">Assistance & Benefits</div>
 
         </div>
 
         <div class="p-3 bg-light border rounded row m-1 mt-3">
-            <div class="h5 col-12">Person Vulnerabilities</div>
+            <div class="h5 col-12">Vulnerabilities</div>
 
         </div>
 

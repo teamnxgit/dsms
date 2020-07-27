@@ -95,6 +95,10 @@ Route::post('/system/household/vulnerability/rem','SystemController@remHousehold
 Route::get('/system/job/','SystemController@job');
 Route::post('/system/job/add','SystemController@addJob');
 Route::post('/system/job/rem','SystemController@remJob');
+// Benefits
+Route::get('/system/benefit/','SystemController@benefit');
+Route::post('/system/benefit/add','SystemController@addBenefit');
+Route::post('/system/benefit/rem','SystemController@remBenefit');
 
 // Household
 Route::post('/system/households/list','HouseholdController@listHousehold');

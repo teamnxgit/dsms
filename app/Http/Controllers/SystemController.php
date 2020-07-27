@@ -10,6 +10,7 @@ use App\FacilityType;
 use App\Facility;
 use App\VulnerabilityType;
 use App\Job;
+use App\Benefit;
 use Redirect;
 use Session;
 use DB;
@@ -36,8 +37,8 @@ class SystemController extends Controller
 
     public function person(){
         $data['gn_divisions_count'] = GnDivision::all()->count();
-        $data['towns_count'] = Town::all()->count();
-        $data['streets_count'] = Street::all()->count();
+        $data['jobs_count'] = Job::all()->count();
+        $data['benefits_count'] = Benefit::all()->count();
         return view('cms.system.person')->with($data);
     }
 
@@ -94,6 +95,42 @@ class SystemController extends Controller
         $job->delete();
 
         session()->flash('success', 'Job removed');
+        return redirect()->back();
+    }
+
+    public function benefit(){
+        $data['benefits']=Benefit::all();
+        return view('cms.system.person.benefit')->with($data);
+    }
+
+    public function addBenefit(Request $request){
+        $request->validate([
+            'name'=>'required',
+            'program'=>'required',
+            'description'=>'required',
+            'value'=>'required',
+        ]);
+
+        $benefit = new Benefit;
+        $benefit->name = $request->input('name');
+        $benefit->program = $request->input('program');
+        $benefit->description = $request->input('description');
+        $benefit->value = $request->input('value');
+        $benefit->save();
+
+        session()->flash('success', 'Benefit created');
+        return redirect()->back();
+    }
+
+    public function remBenefit(Request $request){
+        $request->validate([
+            'benefit_id'=>'required',
+        ]);
+
+        $benefit = Benefit::findOrFail($request->input('benefit_id'));
+        $benefit->delete();
+
+        session()->flash('success', 'Benefit removed');
         return redirect()->back();
     }
 }
