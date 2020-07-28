@@ -113,34 +113,27 @@ class PersonController extends Controller
     }
 
     public function update(Request $request){
-        $nic_count = Person::where('nic',$request->input('nic'))->count();
-        if ($nic_count==0 ||$request->input('nic')==null) {
-            $request->validate([
-                'person_id'=>'required',
-                'town_id'=>'required',
-                'household_id'=>'required',
-                'fullname'=>'required',
-                'gender'=>'required',
-                'status'=>'required',
-            ]);
-    
-            $person = Person::findOrFail($request->input('person_id'));
-            $person->town_id=$request->input('town_id');
-            $person->household_id=$request->input('household_id');
-            $person->nic=$request->input('nic');
-            $person->full_name=$request->input('fullname');
-            $person->gender=$request->input('gender');
-            $person->status=$request->input('status');
-    
-            $person->save();
-    
-            Session::flash('success', 'Person basic details updated');
-            return Redirect::back();
-        }
-        else {
-            Session::flash('danger', $request->input('nic'). ' NIC alredy exist');
-            return Redirect::back();
-        }
+        $request->validate([
+            'person_id'=>'required',
+            'town_id'=>'required',
+            'household_id'=>'required',
+            'fullname'=>'required',
+            'gender'=>'required',
+            'status'=>'required',
+        ]);
+
+        $person = Person::findOrFail($request->input('person_id'));
+        $person->town_id=$request->input('town_id');
+        $person->household_id=$request->input('household_id');
+        $person->nic=$request->input('nic');
+        $person->full_name=$request->input('fullname');
+        $person->gender=$request->input('gender');
+        $person->status=$request->input('status');
+
+        $person->save();
+
+        Session::flash('success', 'Person basic details updated');
+        return Redirect::back();
     }
 
     public function updatePersonDetails(Request $request){
