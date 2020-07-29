@@ -17,8 +17,17 @@ use Auth;
 
 class HouseholdController extends Controller
 {
-    public function index(){
-        $data['households'] = Household::orderBy('created_at','desc')->paginate(20);
+    public function index(Request $request){
+        $keyword = $request->input('keyword');
+        $data['keyword']=$keyword;
+        if ($keyword==null||$keyword=='') {
+            $data['households'] = Household::orderBy('created_at','desc')->paginate(20);
+        }
+        else {
+            //$data['households'] = Household::where('house_no','like','%'.$keyword.'%')->orderBy('house_no','asc')->paginate(100);
+            $data['households'] = Household::where('house_no','like','%'.$keyword.'%')->orderByRaw('CHAR_LENGTH(house_no)')->paginate(100);
+        }
+        
         return view('cms.household.households')->with($data);
     }
 

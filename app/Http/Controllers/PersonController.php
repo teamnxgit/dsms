@@ -23,7 +23,7 @@ class PersonController extends Controller
             $data['people'] = Person::where('status','Alive')->orderBy('created_at','desc')->paginate(20);
         }
         else {
-            $data['people'] = Person::where('status','Alive')->where('nic','like','%'.$keyword.'%')->orWhere('full_name','like','%'.$keyword.'%')->orderBy('created_at','desc');
+            $data['people'] = Person::where('status','Alive')->where('nic','like','%'.$keyword.'%')->orWhere('full_name','like','%'.$keyword.'%')->orderBy('created_at','desc')->paginate(100);
         }
         
         return view('cms.person.people')->with($data);

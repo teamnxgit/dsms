@@ -292,6 +292,7 @@
                         <option value="permanent" @if($person->persondetail->residence_status=='permanent')selected @endif>Permanent</option>
                         <option value="rent" @if($person->persondetail->residence_status=='rent')selected @endif>Rent</option>
                         <option value="temporary" @if($person->persondetail->residence_status=='temporary')selected @endif>Temporary</option>
+                        <option value="homeless" @if($person->persondetail->residence_status=='homeless')selected @endif>Homeless</option>
                     </select>
                 </div>
 

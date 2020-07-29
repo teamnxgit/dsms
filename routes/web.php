@@ -39,7 +39,7 @@ Route::post('/person/addbenefit', 'PersonController@addBenefit');
 
 // Household
 /* Views */
-Route::get('/households', 'HouseholdController@index');
+Route::any('/households', 'HouseholdController@index');
 Route::post('/households/search/', 'HouseholdController@search');
 Route::get('/household/view/{id}', 'HouseholdController@household')->name('Household');
 Route::get('/household/new', 'HouseholdController@new')->name('New Household');

@@ -20,13 +20,15 @@
             </div>
         </div>
         <hr>
+        {!! Form::open(['url' => '/households']) !!}
         <div class="p-3 bg-light border rounded row m-1">
             <div class="h5 col-12">Search Household</div>
             {{Form::label('search',null,['class'=>'col-lg-1 pt-1'])}}
-            {{Form::text('search',null,['class'=>'form-control col-lg-9 mb-2','placeholder'=>'Search House No'])}}
+            {{Form::text('keyword',$keyword,['class'=>'form-control col-lg-9 mb-2','placeholder'=>'Search House No'])}}
             
             {{Form::submit('Search',['class'=>'btn btn-primary col-lg-1 ml-lg-2 mb-2'])}}
         </div>
+        {!! Form::close() !!}
 
         <div class="p-3 bg-light border rounded row m-1 mt-3">
            <div class="table-responsive">
@@ -79,17 +81,13 @@
                                                 @foreach($household->people as $person)
                                                     @if($person->persondetail->is_head_of_family)
                                                     <tr class="bg-primary text-light">
-                                                        <td><a href="person/view/{{$person->id}}">{{$person->nic}}</a></td>
-                                                        <td>{{$person->full_name}}</td>
-                                                        <td>{{$person->age}}</td>
-                                                    </tr>
                                                     @else
                                                     <tr class="alert-warning">
-                                                        <td><a href="person/view/{{$person->id}}" class="badge badge-warning p-2">{{$person->nic}}</a></td>
-                                                        <td>{{$person->full_name}}</td>
+                                                    @endif
+                                                        <td>{{$person->nic}}</td>
+                                                        <td><a href="person/view/{{$person->id}}">{{$person->full_name}}</a></td>
                                                         <td>{{$person->age}}</td>
                                                     </tr>
-                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -98,6 +96,11 @@
                             </tr>
                         @endforeach
                         <tfoot>
+                        <tr>
+                            <td colspan="6">
+                            <b>Count : {{$households->total()}}</b>
+                            </td>
+                        </tr>
                         <tr>
                             <td colspan="6">
                                 {{$households->links()}}
