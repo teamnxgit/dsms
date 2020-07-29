@@ -11,6 +11,7 @@ use App\Facility;
 use App\VulnerabilityType;
 use App\Job;
 use App\Benefit;
+use App\Assistance;
 use Redirect;
 use Session;
 use DB;
@@ -39,6 +40,7 @@ class SystemController extends Controller
         $data['gn_divisions_count'] = GnDivision::all()->count();
         $data['jobs_count'] = Job::all()->count();
         $data['benefits_count'] = Benefit::all()->count();
+        $data['assistances_count'] = Assistance::all()->count();
         return view('cms.system.person')->with($data);
     }
 
@@ -131,6 +133,28 @@ class SystemController extends Controller
         $benefit->delete();
 
         session()->flash('success', 'Benefit removed');
+        return redirect()->back();
+    }
+
+    public function assistance(){
+        $data['assistances']=Assistance::all();
+        return view('cms.system.person.assistance')->with($data);
+    }
+
+    public function addAssistance(Request $request){
+        $request->validate([
+            'name'=>'required',
+            'description'=>'required',
+            'value'=>'required',
+        ]);
+
+        $assistance = new Assistance;
+        $assistance->name = $request->input('name');
+        $assistance->description = $request->input('description');
+        $assistance->value = $request->input('value');
+        $assistance->save();
+
+        session()->flash('success', 'Assistance Program created');
         return redirect()->back();
     }
 }

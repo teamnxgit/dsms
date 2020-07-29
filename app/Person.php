@@ -40,6 +40,10 @@ class Person extends Model
     }
 
     public function benefits(){
-        return $this->belongsToMany(Benefit::class)->withPivot('note', 'date');
+        return $this->belongsToMany(Benefit::class,'benefit_people')->withPivot('note', 'date','current_status');
+    }
+
+    public function assistances(){
+        return $this->belongsToMany(Assistance::class,)->withPivot('from','to','note');
     }
 }

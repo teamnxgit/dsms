@@ -9,14 +9,23 @@ use App\Town;
 use App\PersonDetail;
 use App\Household;
 use App\Job;
+use App\Benefit;
 use Redirect;
 use Session;
 
 class PersonController extends Controller
 {
     // 
-    public function index(){
-        $data['people'] = Person::where('status','Alive')->orderBy('created_at','desc')->paginate(20);
+    public function index(Request $request){
+        $keyword = $request->input('keyword');
+        $data['keyword']=$keyword;
+        if ($keyword==null||$keyword=='') {
+            $data['people'] = Person::where('status','Alive')->orderBy('created_at','desc')->paginate(20);
+        }
+        else {
+            $data['people'] = Person::where('status','Alive')->where('nic','like','%'.$keyword.'%')->orWhere('full_name','like','%'.$keyword.'%')->orderBy('created_at','desc')->paginate(20);
+        }
+        
         return view('cms.person.people')->with($data);
     }
 
@@ -31,6 +40,7 @@ class PersonController extends Controller
         $data['households'] = Household::where('gn_division_id',$person->gn_division_id)->get();
         $data['person']=$person;
         $data['jobs']=Job::all();
+        $data['benefits']=Benefit::all();
         return view('cms.person.person')->with($data);
     }
 
@@ -189,5 +199,36 @@ class PersonController extends Controller
         return Redirect::back();
     }
 
+    public function addBenefit(Request $request){
+
+        $request->validate([
+            'person_id'=>'required',
+            'benefit_id'=>'required'
+        ]);
+
+        $person = Person::findOrFail($request->input('person_id'));
+        $benefit = Benefit::findOrFail($request->input('benefit_id'));
+
+        $person_benefit = $person->benefits->where('benefit_id',$request->input('benefit_id'));
+        $person_benefit_count = $person_benefit->count();
+        
+        if ($person_benefit_count>0) {
+            $person_benefit->note = $request->input('note');
+            $person_benefit->date = $request->input('date');
+            $person_benefit->current_status = $request->input('current_status');
+            $person_benefit->save();
+            Session::flash('success', 'Person benefit updated');
+            return Redirect::back();
+        }
+        else {
+            $person->benefits()->attach($benefit->id,[
+                'note'=>$request->input('note'),
+                'date'=>$request->input('date'),
+                'current_status'=>$request->input('current_status')
+            ]);
+            Session::flash('success', 'Person benefit created');
+            return Redirect::back();
+        }
+    }
     
 }

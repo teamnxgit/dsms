@@ -185,6 +185,7 @@
                         <option value="separated" @if($person->persondetail->maritial_status=='separated')selected @endif>Separated</option>
                         <option value="widow" @if($person->persondetail->maritial_status=='widow')selected @endif>Widow</option>
                         <option value="widower" @if($person->persondetail->maritial_status=='widower')selected @endif>Widower</option>
+                        <option value="war widow" @if($person->persondetail->maritial_status=='war widow')selected @endif>War Widow</option>
                     </select>
                 </div>
 
@@ -357,14 +358,101 @@
             </div>
         </div>
 
-        <div class="p-3 bg-light border rounded row m-1 mt-3">
-            <div class="h5 col-12">Person with Disabilities</div>
-
+        <div id="accordion-disabilities">
+            <div class="card border rounded m-1 mt-3">
+                <div class="card-header" id="headingOne">
+                    <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-disabilities" aria-expanded="true" aria-controls="collapseOne">
+                        Person with Disabilities
+                    </h5>
+                </div>
+                
+                <div id="collapse-disabilities" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-disabilities">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="table-responsive">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="p-3 bg-light border rounded row m-1 mt-3">
-            <div class="h5 col-12">Assistance & Benefits</div>
+        <div id="accordion-benefits">
+            <div class="card border rounded m-1 mt-3">
+                <div class="card-header" id="headingOne">
+                    <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-benefits" aria-expanded="true" aria-controls="collapseOne">
+                        Benefits
+                    </h5>
+                </div>
+                
+                <div id="collapse-benefits" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-benefits">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="table-responsive">
+                            <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="text-center">Date</th>
+                                            <th class="text-center">Benefit</th>
+                                            <th class="text-center">Note</th>
+                                            <th class="text-center">Current Status</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($person->benefits as $benefit)
+                                            <tr>
+                                                <td class="text-center">{{$benefit->pivot->date}}</td>
+                                                <td class="text-center">{{$benefit->program}} : {{$benefit->name}}</td>
+                                                <td class="text-center">{{$benefit->pivot->note}}</td>
+                                                <td class="text-center">{{$benefit->pivot->current_status}}</td>
+                                                <td class="text-center">
+                                                @can('Person & Household Operator')
+                                                    {!! Form::open(['url' => '/person/rembenefit']) !!}
+                                                        <input type="hidden" name="benefit_id" value="{{$benefit->id}}">
+                                                        <input type="hidden" name="person_id" value="{{$person->id}}">
+                                                        <button class="btn btn-danger" type="submit">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    {!! Form::close() !!}
+                                                @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <td colspan="4">
+                                        <button type="button" class="btn btn-outline-success ml-2" data-toggle="modal" data-target="#Benefit-Person-Modal">Add Benefit</button>
+                                        </td>
+                                    </tfoot>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div id="accordion-assistance">
+            <div class="card border rounded m-1 mt-3">
+                <div class="card-header" id="headingOne">
+                    <h5 class="h5 col-12 pt-3 " data-toggle="collapse" data-target="#collapse-assistance" aria-expanded="true" aria-controls="collapseOne">
+                        Assistance Programs
+                    </h5>
+                </div>
+                
+                <div id="collapse-assistance" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-assistance">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="table-responsive">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="p-3 bg-light border rounded row m-1 mt-3">
@@ -435,6 +523,79 @@
 
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-success" value="Add">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Benefits-->
+        <div class="modal fade" id="Benefit-Person-Modal" tabindex="-1" role="dialog" aria-labelledby="Benefit-Person-Modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            {!! Form::open(['url' => '/person/addbenefit']) !!}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Benefit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Person ID</span>
+                            </div>
+                            <input type="text" class="form-control" readonly name="person_id" value="{{$person->id}}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Full Name</span>
+                            </div>
+                            <input type="text" class="form-control" readonly name="household_number" value="{{$person->full_name}}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Benefit</span>
+                            </div>
+                            <select name="benefit_id" id="" class="form-control">
+                                <option value="">Select the Benefit</option>
+                                @foreach($benefits as $benefit)
+                                    <option value="{{$benefit->id}}">{{$benefit->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Date</span>
+                            </div>
+                            <input type="date" class="form-control" name="date">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Note</span>
+                            </div>
+                            <textarea class="form-control" name="note"></textarea>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Current Status</span>
+                            </div>
+                            <select name="current_status" id="" class="form-control">
+                                <option value="">Select Current Status</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Not in Progress">Not in Progress</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Save">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                     {!! Form::close() !!}

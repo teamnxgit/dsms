@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
 
-Route::get('/people', 'PersonController@index')->name('Person');
+Route::any('/people', 'PersonController@index')->name('Person');
 Route::post('/person/search', 'PersonController@search')->name('Person');
 Route::get('/person/view/{id}', 'PersonController@person')->name('Person');
 Route::get('/person/new', 'PersonController@new')->name('New Person');
@@ -33,6 +33,8 @@ Route::post('/person/rem', 'PersonController@rem');
 Route::post('/person/update', 'PersonController@update');
 Route::post('/person/updatepersondetails', 'PersonController@updatePersonDetails');
 Route::post('/person/addjob', 'PersonController@addJob');
+Route::post('/person/addbenefit', 'PersonController@addBenefit');
+
 
 
 // Household
@@ -99,6 +101,10 @@ Route::post('/system/job/rem','SystemController@remJob');
 Route::get('/system/benefit/','SystemController@benefit');
 Route::post('/system/benefit/add','SystemController@addBenefit');
 Route::post('/system/benefit/rem','SystemController@remBenefit');
+// Assistance
+Route::get('/system/assistance/','SystemController@assistance');
+Route::post('/system/assistance/add','SystemController@addAssistance');
+Route::post('/system/assistance/rem','SystemController@remAssistance');
 
 // Household
 Route::post('/system/households/list','HouseholdController@listHousehold');

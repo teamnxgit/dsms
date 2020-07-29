@@ -38,8 +38,8 @@
         <div class="col-lg-3 rounded">
             <div class="card-counter danger">
               <i class="fas fa-hands-helping"></i>
-              <span class="count-numbers">0</span>
-              <a class="count-name" href="/system/assistance/">Assistance</a>
+              <span class="count-numbers">{{$assistances_count}}</span>
+              <a class="count-name" href="/system/assistance/">Assistance Program</a>
             </div>
         </div>
     </div>
