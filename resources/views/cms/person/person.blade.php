@@ -395,6 +395,7 @@
                                         <tr>
                                             <th class="text-center">Date</th>
                                             <th class="text-center">Benefit</th>
+                                            <th class="text-center">Value</th>
                                             <th class="text-center">Note</th>
                                             <th class="text-center">Current Status</th>
                                             <th class="text-center">Action</th>
@@ -405,6 +406,7 @@
                                             <tr>
                                                 <td class="text-center">{{$benefit->pivot->date}}</td>
                                                 <td class="text-center">{{$benefit->program}} : {{$benefit->name}}</td>
+                                                <td class="text-center">{{$benefit->value}}</td>
                                                 <td class="text-center">{{$benefit->pivot->note}}</td>
                                                 <td class="text-center">{{$benefit->pivot->current_status}}</td>
                                                 <td class="text-center">

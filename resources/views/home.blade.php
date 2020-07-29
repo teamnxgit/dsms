@@ -16,7 +16,7 @@
                     @endif
 
                     You are logged in!
-                    <a href="/person">Goto Person & Household</a>
+                    <a href="/people">Goto Person & Household</a>
                 </div>
             </div>
         </div>

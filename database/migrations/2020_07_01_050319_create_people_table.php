@@ -20,7 +20,7 @@ class CreatePeopleTable extends Migration
             $table->string('gender',6);
             $table->unsignedBigInteger('gn_division_id');
             $table->unsignedBigInteger('town_id');
-            $table->string('nic',15)->unique()->nullable();
+            $table->string('nic')->unique()->nullable();
             $table->unsignedBigInteger('household_id')->nullable();
             $table->string('status')->default('Alive')->nullable();
             $table->timestamps();

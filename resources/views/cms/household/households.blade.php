@@ -79,13 +79,13 @@
                                                 @foreach($household->people as $person)
                                                     @if($person->persondetail->is_head_of_family)
                                                     <tr class="bg-primary text-light">
-                                                        <td >{{$person->nic}}</td>
+                                                        <td><a href="person/view/{{$person->id}}">{{$person->nic}}</a></td>
                                                         <td>{{$person->full_name}}</td>
                                                         <td>{{$person->age}}</td>
                                                     </tr>
                                                     @else
                                                     <tr class="alert-warning">
-                                                        <td >{{$person->nic}}</td>
+                                                        <td><a href="person/view/{{$person->id}}" class="badge badge-warning p-2">{{$person->nic}}</a></td>
                                                         <td>{{$person->full_name}}</td>
                                                         <td>{{$person->age}}</td>
                                                     </tr>
