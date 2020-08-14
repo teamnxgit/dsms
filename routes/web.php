@@ -120,5 +120,8 @@ Route::Post('/consumable/issue', 'ConsumableController@issue');
 Route::Post('/consumable/transaction/rem', 'ConsumableController@remTransaction');
 Route::get('/consumable/item/{id}', 'ConsumableController@item');
 
+// Attendance & Leave
+Route::get('/attendance', 'AttendanceController@index');
+Route::get('/attendance/calendar', 'AttendanceController@calendar');
 
 });

@@ -191,7 +191,7 @@ class HouseholdController extends Controller
 
     public function listHousehold(Request $request){
         $gn_division = GnDivision::findOrFail($request->input('gn_division_id'));
-        $data['households'] = Household::where('gn_division_id',$gn_division->id)->get();
+        $data['households'] = Household::where('gn_division_id',$gn_division->id)->orderBy('house_no')->get();
         return view('cms.system.household.fetch_households')->with($data);
     }
 
