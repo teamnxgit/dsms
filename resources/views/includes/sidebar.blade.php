@@ -31,7 +31,7 @@ if (Auth::check()) {
         @endcan
 
         @can('Attendance')
-            <a href="/attendance" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-briefcase pr-2" aria-hidden="true"></i> Attendance &amp; Leave</a>
+            <a href="/attendance" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-briefcase mr-3" aria-hidden="true"></i> Attendance &amp; Leave</a>
         @endcan
 
         @can('Social Security')
@@ -44,6 +44,10 @@ if (Auth::check()) {
 
         @can('Consumable')
         <a href="/consumable" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fas fa-inventory mr-3" aria-hidden="true"></i>Consumable</a>
+        @endcan
+
+        @can('Consumable')
+        <a href="/records" class="pl-4 list-group-item list-group-item-action bg-dark text-light"><i class="fa fas fa-books mr-3" aria-hidden="true"></i>Records Management</a>
         @endcan
 
         @can('Super Admin')

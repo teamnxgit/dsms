@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['register' => false]);
+//Auth::routes(['register' => false]);
 
-//Auth::routes();
+Auth::routes();
 
 
 
@@ -58,6 +58,17 @@ Route::post('/household/vulnerability/rem', 'HouseholdController@remVulnerabilit
 Route::post('/household/vulnerability/add', 'HouseholdController@addVulnerability');
 Route::post('/household/person/rem', 'PersonController@deAttachPersonFromHousehold');
 Route::post('/household/person/add', 'PersonController@attachPersonToHousehold');
+
+
+// Record managment
+Route::any('/records', 'RecordController@index');
+Route::get('/record/bundle/view/{id}', 'RecordController@bundle');
+Route::get('/record/bundle/new', 'RecordController@newBundle');
+
+Route::post('/record/bundle/add', 'RecordController@addBundle');
+Route::post('/record/document/add', 'RecordController@addDocument');
+Route::post('/record/bundle/update', 'RecordController@updateBundle');
+
 
 // User
 Route::get('/users', 'UserController@index');
