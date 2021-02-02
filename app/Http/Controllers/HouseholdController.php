@@ -63,7 +63,6 @@ class HouseholdController extends Controller
         $street_id = $request->input('street_id');
         $gn_division_id = GnDivision::findOrFail($request->input('gn_division_id'))->id;
         $town_id = Town::findOrFail($request->input('town_id'))->id;
-        $owner_nic = $request->input('owner_nic');
         $gps = $request->input('gps');
 
         $household = Household::where('house_no',$house_no)->where('gn_division_id',$gn_division_id)->first();
@@ -74,7 +73,6 @@ class HouseholdController extends Controller
                 "gn_division_id"=>$gn_division_id,
                 "town_id"=>$town_id,
                 "street_id"=>$street_id,
-                "owner"=>$owner_nic,
                 "gps"=>$gps
             ]);
             session()->flash('success', 'Household created');
