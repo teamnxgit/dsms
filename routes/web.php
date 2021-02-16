@@ -40,6 +40,10 @@ Route::post('/person/addjob', 'PersonController@addJob');
 Route::post('/person/addbenefit', 'PersonController@addBenefit');
 
 
+Route::post('/person/assistance/add/', 'PersonController@addBenefit');
+
+
+
 
 // Household
 /* Views */

@@ -20,14 +20,14 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Full Name</span>
                     </div>
-                    <input type="text" class="form-control" readonly name="household_number" value="{{$person->full_name}}">
+                    <input type="text" class="form-control" readonly name="full_name" value="{{$person->full_name}}">
                 </div>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Assistance</span>
                     </div>
-                    <select name="benefit_id" id="" class="form-control">
+                    <select name="assistance_id" id="" class="form-control">
                         <option value="">Select the Assistance</option>
                         @foreach($assistances as $assistance)
                             <option value="{{$assistance->id}}">{{$assistance->name}}</option>
@@ -47,6 +47,13 @@
                         <span class="input-group-text">To</span>
                     </div>
                     <input type="date" class="form-control" name="to">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Status</span>
+                    </div>
+                    <input type="text" class="form-control" name="status">
                 </div>
 
                 <div class="input-group mb-3">
