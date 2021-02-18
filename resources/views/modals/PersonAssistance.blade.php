@@ -53,7 +53,10 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Status</span>
                     </div>
-                    <input type="text" class="form-control" name="status">
+                    <select name="status" id="" class="form-control">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
                 </div>
 
                 <div class="input-group mb-3">

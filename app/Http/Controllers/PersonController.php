@@ -200,50 +200,11 @@ class PersonController extends Controller
         Session::flash('success', 'Person job updated');
         return Redirect::back();
     }
-
-    public function addBenefit(Request $request){
-
-        $request->validate([
-            'person_id'=>'required',
-            'benefit_id'=>'required'
-        ]);
-
-        $person = Person::findOrFail($request->input('person_id'));
-        $benefit = Benefit::findOrFail($request->input('benefit_id'));
-
-        $person_benefit = $person->benefits->where('benefit_id',$request->input('benefit_id'));
-        $person_benefit_count = $person_benefit->count();
-        
-
-        $person->benefits()->attach($benefit->id,[
-            'note'=>$request->input('note'),
-            'date'=>$request->input('date'),
-            'current_status'=>$request->input('current_status')
-        ]);
-
-        Session::flash('success', 'Person benefit record created');
-        return Redirect::back();
-    }
+    
 
     public function addAssistance(Request $request){
-
-        $request->validate([
-            'person_id'=>'required',
-            'assistance_id'=>'required'
-        ]);
-
-        $person = Person::findOrFail($request->input('person_id'));
-        $assistance = Benefit::findOrFail($request->input('assistance_id'));
         
-        $person->assistance()->attach(
-            $assistance->id,[
-                'date'=>$request->input('from'),
-                'date'=>$request->input('to'),
-                'note'=>$request->input('note'),
-            ]);
         
-        Session::flash('success', 'Person assistance record created');
-        return Redirect::back();
     }
     
 }

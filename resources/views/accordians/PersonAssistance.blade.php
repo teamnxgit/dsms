@@ -17,6 +17,7 @@
                                 <th class="text-center">From</th>
                                 <th class="text-center">To</th>
                                 <th class="text-center">Benefit</th>
+                                <th class="text-center">Value</th>
                                 <th class="text-center">Note</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Action</th>
@@ -25,15 +26,16 @@
                         <tbody>
                             @foreach($person->assistances as $assistance)
                                 <tr>
-                                    <td class="text-center">{{$assistance->pivot->date}}</td>
-                                    <td class="text-center">{{$assistance->program}} : {{$assistance->name}}</td>
+                                    <td class="text-center">{{$assistance->pivot->from}}</td>
+                                    <td class="text-center">{{$assistance->pivot->to}}</td>
+                                    <td class="text-center" data-toggle="tooltip" data-placement="bottom" title="{{$assistance->description}}">{{$assistance->name}}</td>
                                     <td class="text-center">{{$assistance->value}}</td>
                                     <td class="text-center">{{$assistance->pivot->note}}</td>
-                                    <td class="text-center">{{$assistance->pivot->current_status}}</td>
+                                    <td class="text-center">{{$assistance->pivot->status}}</td>
                                     <td class="text-center">
                                     @can('Person & Household Operator')
-                                        {!! Form::open(['url' => '/person/rembenefit']) !!}
-                                            <input type="hidden" name="benefit_id" value="{{$benefit->id}}">
+                                        {!! Form::open(['url' => '/person/assistance/rem']) !!}
+                                            <input type="hidden" name="assistance_id" value="{{$assistance->id}}">
                                             <input type="hidden" name="person_id" value="{{$person->id}}">
                                             <button class="btn btn-danger" type="submit">
                                                 <i class="fas fa-trash-alt"></i>
