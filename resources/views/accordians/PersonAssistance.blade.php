@@ -26,14 +26,15 @@
                         <tbody>
                             @foreach($person->assistances as $assistance)
                                 <tr>
-                                    <td class="text-center">{{$assistance->pivot->from}}</td>
-                                    <td class="text-center">{{$assistance->pivot->to}}</td>
-                                    <td class="text-center" data-toggle="tooltip" data-placement="bottom" title="{{$assistance->description}}">{{$assistance->name}}</td>
+                                    <td class="text-center" width="11%">{{$assistance->pivot->from}}</td>
+                                    <td class="text-center" width="11%">{{$assistance->pivot->to}}</td>
+                                    <td class="text-center" width="20%" data-toggle="tooltip" data-placement="bottom" title="{{$assistance->description}}">{{$assistance->name}}</td>
                                     <td class="text-center">{{$assistance->value}}</td>
-                                    <td class="text-center">{{$assistance->pivot->note}}</td>
-                                    <td class="text-center">{{$assistance->pivot->status}}</td>
+                                    <td class="text-center" width="40%">{{$assistance->pivot->note}}</td>
+                                    <td class="text-center" width="10%">{{$assistance->pivot->status}}</td>
                                     <td class="text-center">
                                     @can('Person & Household Operator')
+                                        <button type="button" class="btn btn-warning ml-2" data-toggle="modal" data-target="#Benefit-Person-Modal"><i class="fa fa-edit text-dark" aria-hidden="true"></i></button>
                                         {!! Form::open(['url' => '/person/assistance/rem']) !!}
                                             <input type="hidden" name="assistance_id" value="{{$assistance->id}}">
                                             <input type="hidden" name="person_id" value="{{$person->id}}">

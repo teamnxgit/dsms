@@ -201,10 +201,4 @@ class PersonController extends Controller
         return Redirect::back();
     }
     
-
-    public function addAssistance(Request $request){
-        
-        
-    }
-    
 }

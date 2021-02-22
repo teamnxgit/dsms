@@ -41,7 +41,7 @@ Route::post('/person/addbenefit', 'PersonController@addBenefit');
 
 
 Route::post('/person/assistance/add/', 'AssistanceController@addAssistance');
-Route::post('/person/assistance/rem/', 'AssistanceController@RemAssistance');
+Route::post('/person/assistance/rem/', 'AssistanceController@remAssistance');
 
 
 
