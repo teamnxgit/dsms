@@ -44,6 +44,6 @@ class Person extends Model
     }
 
     public function assistances(){
-        return $this->belongsToMany(Assistance::class,)->withPivot('from','to','note');
+        return $this->belongsToMany(Assistance::class,)->withPivot('from','to','note','status');
     }
 }
