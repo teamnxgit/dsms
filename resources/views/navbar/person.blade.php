@@ -15,6 +15,9 @@
       <li class="nav-item">
         <a class="nav-link" href="/person/reports">Reports</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/person/config">Configurations</a>
+      </li>
     </ul>
       <a class="btn btn-light" type="submit" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
   </div>

@@ -27,15 +27,25 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
 
-Route::any('/people', 'PersonController@index')->name('Person');
-Route::post('/person/search', 'PersonController@search')->name('Person');
+/*------------------ Person -------------------------------*/
+
+// View All People
+Route::any('/people', 'PersonController@index')->name('Person'); 
+// Search People
+Route::any('/people/search', 'PersonController@search')->name('Person');
+// View Details of a person
 Route::get('/person/view/{id}', 'PersonController@person')->name('Person');
+// Create new person
 Route::get('/person/new', 'PersonController@new')->name('New Person');
+
 /* Functions */
 Route::post('/person/add', 'PersonController@add');
 Route::post('/person/rem', 'PersonController@rem');
 Route::post('/person/update', 'PersonController@update');
+
 Route::post('/person/updatepersondetails', 'PersonController@updatePersonDetails');
+
+Route::post('/person/addjob', 'PersonController@addJob');
 Route::post('/person/addjob', 'PersonController@addJob');
 Route::post('/person/addbenefit', 'PersonController@addBenefit');
 

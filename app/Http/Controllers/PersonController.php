@@ -36,13 +36,22 @@ class PersonController extends Controller
     }
 
     public function person($id){
+    /* Getting details of a person */
+        // Creating object & validating id
         $person = Person::findOrFail($id);
-        $data['towns'] = Town::where('gn_division_id',$person->gn_division_id)->get();
-        $data['households'] = Household::where('gn_division_id',$person->gn_division_id)->get();
+        // Getting details of person's Town
+        $data['town'] = Town::where('gn_division_id',$person->gn_division_id)->get();
+        // Getting details of person's Household
+        $data['household'] = Household::where('gn_division_id',$person->gn_division_id)->get();
+        // Getting details of Person
         $data['person']=$person;
+        // Getting details of Jobs
         $data['jobs']=Job::all();
+        // Getting details of Benefits
         $data['benefits']=Benefit::all();
+        // Getting details of Assitances
         $data['assistances']=Assistance::all();
+        // Returning View with data
         return view('cms.person.person')->with($data);
     }
 
@@ -112,19 +121,27 @@ class PersonController extends Controller
         return Redirect::back();
     }
 
-    public function rem(Request $request){
+    public function remove(Request $request){
+    /*-- Deleting a Person --*/
+        // Presence Check
         $request->validate([
             'person_id'=>'required'
         ]);
+        // Creating object & validating person_id
         $person = Person::findOrFail($request->input('person_id'));
+        // Removing other details
         $person->persondetail->delete();
+        // Deleting Person
         $person->delete();
-
+        // Flasing Message
         Session::flash('success', $person->nic. ' removed from database');
+        // Redirecting to --> People
         return Redirect('/people');
     }
 
     public function update(Request $request){
+    /*- Updating Person's essential details -*/
+        // Presence Check
         $request->validate([
             'person_id'=>'required',
             'town_id'=>'required',
@@ -133,28 +150,32 @@ class PersonController extends Controller
             'gender'=>'required',
             'status'=>'required',
         ]);
-
+        // Creating Object & Validating input
         $person = Person::findOrFail($request->input('person_id'));
+        // Assigning values to object
         $person->town_id=$request->input('town_id');
         $person->household_id=$request->input('household_id');
         $person->nic=$request->input('nic');
         $person->full_name=$request->input('fullname');
         $person->gender=$request->input('gender');
         $person->status=$request->input('status');
-
+        // Saving Obejct
         $person->save();
-
+        // Flashing message
         Session::flash('success', 'Person basic details updated');
+        // Redirecting to previous page
         return Redirect::back();
     }
 
     public function updatePersonDetails(Request $request){
+    /*-------- Updating Person's other details ----------*/
+        // Presence Check
         $request->validate([
             'person_id'=>'required',
         ]);
-        
+        // Creating object & validating person_id
         $personDetail = PersonDetail::findOrFail($request->input('person_id'));
-
+        // Assigning values to object
         $personDetail->name_with_initials = $request->input('name_with_initials');
         $personDetail->full_name_t = $request->input('full_name_t');
         $personDetail->driving_license = $request->input('driving_license');
@@ -167,38 +188,66 @@ class PersonController extends Controller
         $personDetail->mobile_no = $request->input('mobile_no');
         $personDetail->land_phone_no = $request->input('land_phone_no');
         $personDetail->email = $request->input('email');
+        $personDetail->vote_list_serial = $request->input('vote_list_serial');
+        $personDetail->residence_status = $request->input('residence_status');
         if ($request->input('is_head_of_family')) {
             $personDetail->is_head_of_family = 1;
         }
         else {
             $personDetail->is_head_of_family = 0;
         }
-        $personDetail->vote_list_serial = $request->input('vote_list_serial');
-        $personDetail->residence_status = $request->input('residence_status');
-
-
+        // Saving objects
         $personDetail->save();
-
+        // Flashing Message
         Session::flash('success', 'Person other details updated');
+        // Redirecting to previous page
         return Redirect::back();
     }
 
-    public function addJob(Request $request){
+    public function attachJob(Request $request){
+    /*------- Attaching Job to a Person --------*/
+        // Presence Check
         $request->validate([
             'person_id'=>'required',
             'job_id'=>'required'
         ]);
-
+        // Creating Objects & validating person_id, job_id
         $person = Person::findOrFail($request->input('person_id'));
         $job = Job::findOrFail($request->input('job_id'));
-
+        // Attaching job
         $person->jobs()->attach($job->id,[
             'income'=>$request->input('income'),
             'note'=>$request->input('note')
         ]);
-
+        // Flashing message
         Session::flash('success', 'Person job updated');
+        // Redirecting to previous page
         return Redirect::back();
     }
     
+    public function attachBenefit(Request $request){
+    /*------- Attaching Benefits to Person -------*/
+        // Presence check
+        $request->validate([
+            'person_id'=>'required',
+            'benefit_id'=>'required'
+        ]);
+        // Creating Objects & Validaing person_id, benefit_id
+        $person = Person::findOrFail($request->input('person_id'));
+        $benefit = Benefit::findOrFail($request->input('benefit_id'));
+        /*
+        $person_benefit = $person->benefits->where('benefit_id',$request->input('benefit_id'));
+        $person_benefit_count = $person_benefit->count();
+        */
+        // Attaching Benefit
+        $person->benefits()->attach($benefit->id,[
+            'note'=>$request->input('note'),
+            'date'=>$request->input('date'),
+            'current_status'=>$request->input('current_status')
+        ]);
+        // Flashing message  
+        Session::flash('success', 'Person benefit record created');
+        // Redirecting to previous page
+        return Redirect::back();
+    }
 }

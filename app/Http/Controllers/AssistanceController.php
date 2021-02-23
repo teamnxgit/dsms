@@ -10,7 +10,32 @@ use Redirect;
 
 class AssistanceController extends Controller
 {
+    
+    public function assistance(){
+        $data['assistances']=Assistance::all();
+        return view('cms.system.person.assistance')->with($data);
+    }
+    
     public function addAssistance(Request $request){
+        $request->validate([
+            'name'=>'required',
+            'description'=>'required',
+            'value'=>'required',
+        ]);
+
+        $assistance = new Assistance;
+        $assistance->name = $request->input('name');
+        $assistance->description = $request->input('description');
+        $assistance->value = $request->input('value');
+        $assistance->save();
+
+        session()->flash('success', 'Assistance Program created');
+        return redirect()->back();
+    }
+
+    
+
+    public function atachAssistance(Request $request){
         $request->validate([
             'person_id' => 'required',
             'assistance_id'=>'required',
@@ -32,7 +57,7 @@ class AssistanceController extends Controller
         return Redirect::back();
     }
 
-    public function remAssistance(Request $request){
+    public function detachAssistance(Request $request){
         $request->validate([
             'person_id' => 'required',
             'assistance_id'=>'required'

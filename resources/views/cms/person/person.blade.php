@@ -125,7 +125,7 @@
 
         <!--Person Jobs-->
         @include('accordians.PersonJobs')
-        @include('modals.PersonBenefits')
+        @include('modals.PersonJobs')
         <!--End of Accordian -->
 
         <!--Person Disabilities-->
